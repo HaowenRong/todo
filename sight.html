@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="sight.css">
+	<nav class="naviBar">
+		<a id="btn1" class="left" onclick="btnClick()">Button1</a>
+		<a id="btn2" class="left" onclick="createItem()">Btn2</a>
+		<a class="seperator"></a>
+		<a id="btn3" class="right">BTN03</a>
+		<input class="searchBar" placeholder="Search...">
+		<div id="submit" class="submitButton">
+	</nav>
+	<script>
+		function btnClick() {
+			const a = document.createElement("p");
+			a.textContent = "button press";
+			document.getElementById("content").appendChild(a);
+		}
+		function createItem() {
+			const newItem = document.createElement("div");
+			newItem.className = "item";
+
+			const itemTitle = document.createElement("a");
+			itemTitle.className = "title";
+			const itemDesc = document.createElement("a");
+			itemDesc.className = "desc";
+
+			newItem.appendChild(itemTitle);
+			newItem.appendChild(itemDesc);
+
+			document.getElementById("content").appendChild(newItem);
+		}
+	</script>
+	<div id="content" class="contentContainer">
+		<h1>Heading</h1>
+		<hr>
+		<div class="item">
+			<a class="title">dhjsafgjadsgfjasdk</a>
+			<a class="desc">jfdklasjfkladjfl</a>
+		</div>
+		<div class="item"></div>
+		<div class="item"></div>
+		<div class="item"></div>
+		<p>A para</p>
+	</div>
+</head>
+
+
+
