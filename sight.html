@@ -5,9 +5,9 @@
 		<a id="btn1" class="left" onclick="btnClick()">Button1</a>
 		<a id="btn2" class="left" onclick="createItem()">Btn2</a>
 		<a class="seperator"></a>
-		<a id="btn3" class="right">BTN03</a>
+		<a id="btn3" class="right" onclick="createCat()">BTN03</a>
 		<input class="searchBar" placeholder="Search...">
-		<div id="submit" class="submitButton">
+		<div id="submit" class="submitButton" onclick="test()">
 	</nav>
 	<script>
 		function btnClick() {
@@ -20,7 +20,7 @@
 			newItem.className = "item";
 
 			const itemTitle = document.createElement("a");
-			itemTitle.className = "title";
+			itemTitle.className = "itemTitle";
 			const itemDesc = document.createElement("a");
 			itemDesc.className = "desc";
 
@@ -29,13 +29,32 @@
 
 			document.getElementById("content").appendChild(newItem);
 		}
+
+		function createCat() {
+			const newCat = document.createElement("div");
+			newCat.className = "category";
+
+			const newItem = document.createElement("item");
+			newItem.className = "item"
+
+			newCat.appendChild("hr");
+			newCat.appendChild(item);
+
+			document.getElementById("content").appendChild(newCat);
+		}
+
+		function test() {
+			const a = document.getElementById("btn1");
+			a.textContent = "fdjklasfhjaklsdfghakl";
+		}
+
 	</script>
 	<div id="content" class="contentContainer">
-		<div class="category">
-			<a class="title">Heading</a>
+		<div id="test" class="category">
+			<a class="catTitle">Heading</a>
 			<hr>
 			<div class="item">
-				<a class="title">dhjsafgjadsgfjasdk</a>
+				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
 				<a class="desc">jfdklasjfkladjfl</a>
 			</div>
 			<div class="item"></div>
@@ -44,10 +63,10 @@
 			<p>A para</p>
 		</div>
 		<div class="category">
-			<a class="title">Heading</a>
+			<a class="catTitle">Heading</a>
 			<hr>
 			<div class="item">
-				<a class="title">dhjsafgjadsgfjasdk</a>
+				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
 				<a class="desc">jfdklasjfkladjfl</a>
 			</div>
 			<div class="item"></div>
@@ -57,6 +76,3 @@
 		</div>
 	</div>
 </head>
-
-
-
