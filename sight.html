@@ -6,8 +6,9 @@
 		<a id="btn2" class="left" onclick="createItem()">Btn2</a>
 		<a class="seperator"></a>
 		<a id="btn3" class="right" onclick="createCat()">BTN03</a>
-		<input class="searchBar" placeholder="Search...">
-		<div id="submit" class="submitButton" onclick="test()">
+		<!--input class="searchBar" placeholder="Search..."-->
+		<!--div id="submit" class="submitButton" onclick="test()"-->
+		<a id="btn4" class="right" onclick="addCategoryForm()">+</a>
 	</nav>
 	<script>
 		function btnClick() {
@@ -34,19 +35,66 @@
 			const newCat = document.createElement("div");
 			newCat.className = "category";
 
-			const newItem = document.createElement("item");
-			newItem.className = "item"
+			const newCatTitle = document.createElement("a");
+			newCatTitle.text = "fhjnkdshnfgkjadhngkd";
+			newCatTitle.className = "catTitle";
+			
+			const line = document.createElement("hr");
 
-			newCat.appendChild("hr");
-			newCat.appendChild(item);
+			const newItem = document.createElement("div");
+			newItem.className = "item";
+
+			const itemTitle = document.createElement("a");
+			itemTitle.className = "itemTitle";
+			itemTitle.text = "jfiodasjfgojgo";
+			const itemDesc = document.createElement("a");
+			itemDesc.text = "fjkidklajglas";
+			itemDesc.className = "desc";
+
+			newItem.appendChild(itemTitle);
+
+			newItem.appendChild(itemDesc);
+
+			newCat.append(newCatTitle);
+			newCat.appendChild(line);
+			newCat.append(newItem);
 
 			document.getElementById("content").appendChild(newCat);
 		}
-
-		function test() {
-			const a = document.getElementById("btn1");
-			a.textContent = "fdjklasfhjaklsdfghakl";
+		
+		function hideForm(elem) {
+			document.body.removeChild(elem);
 		}
+		
+		function addCategoryForm() {
+			const background = document.createElement("div");
+			background.className = "formAddBackground";
+			document.body.appendChild(background);
+			document.body.style.overflow = "hidden";
+
+			background.addEventListener("click", function() {
+				document.body.removeChild(background);
+				document.body.removeChild(form);
+				document.body.style.overflow = "auto";
+			});
+
+			const form = document.createElement("div");
+			form.className = "formAdd";
+			document.body.appendChild(form);
+
+			const createCatBtn = document.createElement("a");
+			createCatBtn.className = addBtn;
+			createCatBtn.text = "+";
+
+			document.getElementById("content").appendChild(createCatBtn);
+
+		}
+
+		const createCatBtn = document.createElement("a");
+		createCatBtn.className = addBtn;
+		createCatBtn.text = "+";
+
+		document.getElementById("content").appendChild(createCatBtn);
 
 	</script>
 	<div id="content" class="contentContainer">
@@ -74,5 +122,8 @@
 			<div class="item"></div>
 			<p>A para</p>
 		</div>
+		<div class="addBtn">
+			<a class="plus">  +  </a>
+		<div>
 	</div>
 </head>

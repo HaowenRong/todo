@@ -4,13 +4,13 @@ p {
 }
 
 hr {
+  margin-top: 0.2em;
+  padding-top: 3px;
 
-  padding-top: 5px;
-
-  border-radius: 5px;
+  border-radius: 2px;
 
   border: none;
-  background-color: white;
+  background-color: gray;
 }
 
 body {
@@ -29,7 +29,7 @@ body {
 
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
 
   overflow: hidden;
 
@@ -141,15 +141,18 @@ body {
   width: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: aquamarine;
+  z-index: -1;
 }
 
 .category {
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
   border-radius: 10px;
-  padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
   width: 90%;
   z-index: -1;
 
@@ -157,7 +160,7 @@ body {
 }
 
 .category a.catTitle {
-  font-family: "noto serif";
+  font-family:Arial, Helvetica, sans-serif;
   font-size: 24px;
   padding-left: 2vw;
   color: black;
@@ -172,13 +175,15 @@ body {
   padding-left: 15px;
 
   margin-top: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
   
   display: flex;
   position: relative;
 
   height: 65px;
 
-  border-radius: 15px;
+  border-radius: 10px;
 
   background-color: #6c757def;
 }
@@ -201,6 +206,68 @@ body {
   padding-bottom: 5px;
 }
 
-item a.subItem {
+.addBtn {
+  font-size: 50px;
+  text-align: center;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 10px;
+  width: 90%;
+  z-index: -1;
+
+  background-color: grey;
+}
+
+.addBtn a.plus {
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 50%;
+
+  background-color: whitesmoke;
+}
+
+.formAdd {
+
+}
+
+.formAdd {
+  width: 40%;
+  height: 40vh;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+
+  border-radius: 10px;
+
+  background-color: whitesmoke;
+}
+
+.formAdd a.title {
   
 }
+
+.formAddBackground {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  overflow: hidden;
+
+  width: 100%;
+  height: 100vh;
+
+  background-color: rgb(202, 202, 202);
+  opacity: 60%;
+}
+
