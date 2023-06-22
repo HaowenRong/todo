@@ -68,7 +68,7 @@
 		
 		function addCategoryForm() {
 			const background = document.createElement("div");
-			background.className = "formAddBackground";
+			background.className = "addCatFormPopupBackground";
 			document.body.appendChild(background);
 			document.body.style.overflow = "hidden";
 
@@ -79,7 +79,7 @@
 			});
 
 			const form = document.createElement("div");
-			form.className = "formAdd";
+			form.className = "addCatFormPopup";
 			document.body.appendChild(form);
 
 			const createCatBtn = document.createElement("a");
@@ -90,11 +90,41 @@
 
 		}
 
-		const createCatBtn = document.createElement("a");
-		createCatBtn.className = addBtn;
-		createCatBtn.text = "+";
+		function closeAddForm() {
 
-		document.getElementById("content").appendChild(createCatBtn);
+		}
+
+		function addCatFormDropdown() {
+			const container = document.getElementById("content");
+
+			// remove button
+			const createButton = document.getElementById("createButton");
+			container.removeChild(createButton);
+
+			// form container
+			const formContainer = document.createElement("div");
+			formContainer.className = "addCatFormContainer";
+
+			const formTitle = document.createElement("a");
+			formTitle.className = "addCatFormTitle";
+			formTitle.text = "Create category";
+
+			const closeBtn = document.createElement("a");
+			closeBtn.className = "closeBtn";
+			closeBtn.text = "X";
+
+			const catNameInput = document.createElement("input");
+			catNameInput.className = "catNameInput";
+			const catNameSubmit = document.createElement("div");
+			catNameSubmit.className = "catNameSubmitButton";
+
+			// append to doc
+			formContainer.append(formTitle);
+			formContainer.append(closeBtn);
+			formContainer.appendChild(catNameInput);
+			formContainer.appendChild(catNameSubmit);
+			container.appendChild(formContainer);
+		}
 
 	</script>
 	<div id="content" class="contentContainer">
@@ -122,7 +152,7 @@
 			<div class="item"></div>
 			<p>A para</p>
 		</div>
-		<div class="addBtn">
+		<div id="createButton" class="addCatBtn" onclick="addCatFormDropdown()">
 			<a class="plus">  +  </a>
 		<div>
 	</div>
