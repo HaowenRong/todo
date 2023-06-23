@@ -38,8 +38,6 @@
 			const newCatTitle = document.createElement("a");
 			newCatTitle.text = "fhjnkdshnfgkjadhngkd";
 			newCatTitle.className = "catTitle";
-			
-			const line = document.createElement("hr");
 
 			const newItem = document.createElement("div");
 			newItem.className = "item";
@@ -56,10 +54,16 @@
 			newItem.appendChild(itemDesc);
 
 			newCat.append(newCatTitle);
-			newCat.appendChild(line);
 			newCat.append(newItem);
 
-			document.getElementById("content").appendChild(newCat);
+			// add line seperator
+			const lineSeperator = document.createElement("hr");
+			lineSeperator.className = "seperator";
+
+			
+			const container = document.getElementById("content");
+			container.appendChild(newCat);
+			container.appendChild(lineSeperator);
 		}
 		
 		function hideForm(elem) {
@@ -129,30 +133,48 @@
 	</script>
 	<div id="content" class="contentContainer">
 		<div id="test" class="category">
-			<a class="catTitle">Heading</a>
-			<hr>
-			<div class="item">
-				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
-				<a class="desc">jfdklasjfkladjfl</a>
+			<a class="catTitle">Category 1</a>
+			<div class="item itemGray">
+				<!--a class="itemTitle">dhjsafgjadsgfjasdk</a-->
+				<a class="itemTitle">Item title 1</a>
+				<a class="itemDesc">This is the items description</a>
 			</div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<p>A para</p>
 		</div>
+		<hr class="seperator">
 		<div class="category">
-			<a class="catTitle">Heading</a>
-			<hr>
-			<div class="item">
-				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
-				<a class="desc">jfdklasjfkladjfl</a>
+			<a class="catTitle">Category 2</a>
+			<div class="item itemGray">
+				<a class="itemTitle">Item title 2</a>
+				<a class="desc">This is the items description</a>
+				<div class="item itemWhite">
+					<a class="itemTitle">Item title 1 layer 2</a>
+					<a class="desc">This <br> is the items <br> description</a>
+				</div>
+				<div class="item itemWhite">
+					<a class="itemTitle">Item title 3</a>
+					<a class="desc">Item 3 description</a>
+					<div class="item itemGray">
+						<a class="itemTitle">Item title 1 layer 2</a>
+						<a class="desc">This <br> is the items <br> description</a>
+						<div class="item itemWhite">
+							<a class="itemTitle">Item title 1 layer 2</a>
+							<a class="desc">This <br> is the items <br> description</a>
+						</div>
+					</div>
+				</div>
+				<div class="item itemWhite">
+					<a class="itemTitle">Item title 4</a>
+					<a class="desc">Item 4 description</a>
+				</div>
 			</div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<p>A para</p>
+			<div class="item itemGray">
+				<a class="itemTitle">Item title 4</a>
+			</div>
+			<div class="item itemGray">
+				<a class="itemTitle">Item title 5</a>
+			</div>
 		</div>
-		<div id="createButton" class="addCatBtn" onclick="addCatFormDropdown()">
+		<div id="createButton" class="addBtn" onclick="addCatFormDropdown()">
 			<a class="plus">  +  </a>
 		<div>
 	</div>

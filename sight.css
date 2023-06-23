@@ -12,9 +12,21 @@ hr {
   border: none;
   background-color: gray;
 }
+hr.seperator {
+  margin: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  padding-top: 3px;
+
+  border: none;
+  border-radius: 2px;
+
+  background-color: gray;
+}
 
 body {
-  background-color: #f6fff8;
+  background-color: #fdf5df;
 }
 
 /* navigation bar */
@@ -132,7 +144,7 @@ body {
   margin-top: 60px;
   position: absolute;
 
-  width: 100%;
+  width: 80%;
   left: 50%;
   transform: translateX(-50%);
 
@@ -141,16 +153,13 @@ body {
 
 /* category */
 .category {
-  margin-left: auto;
-  margin-right: auto;
 
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 40px;
   padding-right: 40px;
 
-  width: 90%;
-  margin-bottom: 20px;
+  width: 95%;
   border-radius: 10px;
 
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -158,7 +167,8 @@ body {
 
   z-index: -1;
 
-  background-color: #a4c3b2;
+  /*background-color: #dad7cd;*/
+  /*background-color: #a4c3b2;*/
 }
 .category:hover {
   margin-left: auto;
@@ -169,15 +179,14 @@ body {
   padding-left: 40px;
   padding-right: 40px;
 
-  width: 90%;
-  margin-bottom: 20px;
+  width: 95%;
   border-radius: 10px;
 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 10px gray;
 
   z-index: -1;
 
-  background-color: #a4c3b2;
+  /*background-color: #a4c3b2;*/
 }
 .category a.catTitle {
   font-family:Arial, Helvetica, sans-serif;
@@ -189,40 +198,51 @@ body {
 /* item */
 .item {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
 
-  display: flex;
-  position: relative;
+  display: grid;
+  word-break: break-word;
+  grid-template-rows: 0fr 0fr;
 
   margin-top: 5px;
   margin-left: 15px;
   margin-right: 15px;
-  padding-left: 15px;
-
-  height: 65px;
-  border-radius: 10px;
-
-  background-color: #6c757def;
-}
-.item a.itemTitle {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 24px;
-
-  top: 0;
 
   padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 5px;
+
+  border-radius: 10px;
+
+  transition: margin 0.2s;
+
+  /*403d39 6c757def*/
+}
+.item:hover {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.itemGray {
+  background-color: #343a40;
+  color: #f8f9fa;
+}
+.itemWhite {
+  color: #343a40;
+  background-color: #f8f9fa;
+}
+
+.itemTitle {
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 24px;
 }
 .item a.desc {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 18px;
-  position: absolute;
-  bottom: 0;
-  
-  padding-bottom: 5px;
 }
 
 /* category add */
-.addCatBtn {
+.addBtn {
   cursor: pointer;
 
   -webkit-user-select: none; /* Safari */
@@ -232,6 +252,7 @@ body {
   font-size: 50px;
   text-align: center;
 
+  margin-top: 0.5em;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
@@ -243,12 +264,18 @@ body {
   
   border-radius: 10px;
   width: 90%;
+
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 0.3s ease;
   
   z-index: -1;
 
   background-color: grey;
 }
-.addCatBtn a.plus {
+.addBtn:hover {
+  box-shadow: 0 0 10px gray;
+}
+.addBtn a.plus {
   width: 50px;
   height: 50px;
 }
