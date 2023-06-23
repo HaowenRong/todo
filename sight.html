@@ -16,7 +16,7 @@
 			a.textContent = "button press";
 			document.getElementById("content").appendChild(a);
 		}
-		function createItem() {
+		function createItemOld() {
 			const newItem = document.createElement("div");
 			newItem.className = "item";
 
@@ -98,12 +98,22 @@
 
 		}
 
-		function addCatFormDropdown() {
+		// sep
+
+		function dropdownCatAddForm(btnContainer) {
+			// const container = document.getElementById("content");
+			const element = document.querySelector(".addBtn");
+
+			// resize btn
+			element.classList.toggle("addBtnExpanded");
+
+		}
+
+		function dropdownCatAddFormAlt(btnContainer) {
 			const container = document.getElementById("content");
 
 			// remove button
-			const createButton = document.getElementById("createButton");
-			container.removeChild(createButton);
+			container.removeChild(btnContainer);
 
 			// form container
 			const formContainer = document.createElement("div");
@@ -113,6 +123,7 @@
 			formTitle.className = "addCatFormTitle";
 			formTitle.text = "Create category";
 
+				// change styling for consistancy?
 			const closeBtn = document.createElement("a");
 			closeBtn.className = "closeBtn";
 			closeBtn.text = "X";
@@ -130,14 +141,53 @@
 			container.appendChild(formContainer);
 		}
 
+		function appendCatAddBtn() {
+			const contentContainer = document.getElementById("content")
+
+			const btnContainer = document.createElement("div");
+			btnContainer.className = "addBtn";
+			btnContainer.addEventListener("click", function() {
+				dropdownCatAddForm(btnContainer)
+			});
+
+			const btnIcon = document.createElement("a");
+			btnIcon.className = "plus";
+			btnIcon.textContent = "+";
+
+			btnContainer.appendChild(btnIcon);
+			contentContainer.appendChild(btnContainer);
+		}
+
+		function createCategory(title) {
+			const contentContainer = document.getElementById("content")
+
+			const catContainer = document.createElement("div");
+			catContainer.className = "category";
+			
+			const catTitle = document.createElement("a");
+			catContainer.className = "catTitle";
+			catContainer.textContent = title;
+
+			catContainer.appendChild(catTitle);
+			contentContainer.appendChild(catContainer);
+		}
+
+		// create item
+		function createItem(parentDiv) {
+			const itemContainer = document.createElement("div");
+			itemContainer.className = "item itemGray";
+
+			parentDiv.appendChild(itemContainer);
+		}
 	</script>
 	<div id="content" class="contentContainer">
-		<div id="test" class="category">
+		<!--div id="test" class="category">
 			<a class="catTitle">Category 1</a>
 			<div class="item itemGray">
-				<!--a class="itemTitle">dhjsafgjadsgfjasdk</a-->
+				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
 				<a class="itemTitle">Item title 1</a>
 				<a class="itemDesc">This is the items description</a>
+				<div class="itemCloseBtn">X</div>
 			</div>
 		</div>
 		<hr class="seperator">
@@ -176,6 +226,9 @@
 		</div>
 		<div id="createButton" class="addBtn" onclick="addCatFormDropdown()">
 			<a class="plus">  +  </a>
-		<div>
+		<div-->
 	</div>
+	<script>
+		appendCatAddBtn();
+	</script>
 </head>
