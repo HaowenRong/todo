@@ -102,10 +102,42 @@
 
 		function dropdownCatAddForm(btnContainer) {
 			// const container = document.getElementById("content");
-			const element = document.querySelector(".addBtn");
+			const element = document.querySelector(".addCatFormContainer");
+
+			// remove plus icon
+			const plusIcon = document.body.querySelector(".plus");
+			btnContainer.removeChild(plusIcon);
 
 			// resize btn
-			element.classList.toggle("addBtnExpanded");
+			btnContainer.classList.toggle("addCatFormContainerExpanded");
+
+			setTimeout(function(){
+				const formTitle = document.createElement("a");
+				formTitle.className = "addCatFormTitle";
+				formTitle.text = "Create category";
+
+				// change styling for consistancy?
+				const closeBtn = document.createElement("a");
+				closeBtn.className = "closeBtn";
+				closeBtn.text = "X";
+
+				// cat form
+				const catNameInput = document.createElement("input");
+				catNameInput.className = "catNameInput";
+				catNameInput.type = "text";
+				catNameInput.name = "catName";
+				catNameInput.placeholder = "Enter the name of the category";
+				const catNameSubmit = document.createElement("input");
+				catNameSubmit.className = "catNameSubmitButton";
+				catNameSubmit.type = "submit";
+				catNameSubmit.value = "";
+
+				// append to doc
+				btnContainer.append(formTitle);
+				btnContainer.append(closeBtn);
+				btnContainer.appendChild(catNameInput);
+				btnContainer.appendChild(catNameSubmit);
+			}, 100)
 
 		}
 
@@ -145,16 +177,16 @@
 			const contentContainer = document.getElementById("content")
 
 			const btnContainer = document.createElement("div");
-			btnContainer.className = "addBtn";
+			btnContainer.className = "addCatFormContainer";
 			btnContainer.addEventListener("click", function() {
 				dropdownCatAddForm(btnContainer)
 			});
 
-			const btnIcon = document.createElement("a");
-			btnIcon.className = "plus";
-			btnIcon.textContent = "+";
+			const plusIcon = document.createElement("a");
+			plusIcon.className = "plus";
+			plusIcon.textContent = "+";
 
-			btnContainer.appendChild(btnIcon);
+			btnContainer.appendChild(plusIcon);
 			contentContainer.appendChild(btnContainer);
 		}
 
