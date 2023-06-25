@@ -307,9 +307,8 @@ body {
   border-radius: 10px;
   
   width: 90%;
-  height: 3em;
+  height: 2em;
   z-index: -1;
-
 }
 .addCatFormContainer a.plus {
   width: 50px;
@@ -392,11 +391,6 @@ body {
 .catNameInput {
   font-size: 24px;
 
-  margin-bottom: 20px;
-
-  padding-top: 10px;
-  padding-bottom: 10px;
-
   width: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -407,10 +401,6 @@ body {
 .catNameSubmitButton {
   cursor: pointer;
 
-  margin-bottom: 20px;
-
-  padding-top: 10px;
-  padding-bottom: 10px;
   padding-right: 10px;
 
   width: 100%;

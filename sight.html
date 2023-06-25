@@ -132,6 +132,10 @@
 				catNameSubmit.type = "submit";
 				catNameSubmit.value = "";
 
+				catNameSubmit.addEventListener("click", function() {
+					createCategory(catNameInput.value, "test desc");
+				});
+
 				// append to doc
 				btnContainer.append(formTitle);
 				btnContainer.append(closeBtn);
@@ -190,18 +194,25 @@
 			contentContainer.appendChild(btnContainer);
 		}
 
-		function createCategory(title) {
-			const contentContainer = document.getElementById("content")
+		function createCategory(title, desc) {
 
-			const catContainer = document.createElement("div");
-			catContainer.className = "category";
-			
+			const cat = document.createElement("div");
+			cat.className = "category";
+
 			const catTitle = document.createElement("a");
-			catContainer.className = "catTitle";
-			catContainer.textContent = title;
+			catTitle.text = title;
+			catTitle.className = "catTitle";
 
-			catContainer.appendChild(catTitle);
-			contentContainer.appendChild(catContainer);
+			cat.append(catTitle);
+
+			// add line seperator
+			const lineSeperator = document.createElement("hr");
+			lineSeperator.className = "seperator";
+			
+			const contentContainer = document.getElementById("content");
+			contentContainer.appendChild(cat);
+			contentContainer.appendChild(lineSeperator);
+
 		}
 
 		// create item
