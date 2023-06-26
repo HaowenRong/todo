@@ -14,10 +14,23 @@ hr {
 }
 hr.seperator {
   margin: 0;
+  margin: 6em;
   margin-top: 1em;
   margin-bottom: 1em;
 
-  padding-top: 3px;
+  padding-top: 2px;
+
+  border: none;
+  border-radius: 2px;
+
+  background-color: gray;
+}
+hr.titleSeperator {
+  margin: 1em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+
+  padding-top: 1px;
 
   border: none;
   border-radius: 2px;
@@ -156,10 +169,10 @@ body {
   margin-left: auto;
   margin-right: auto;
 
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
 
   width: 90%;
   border-radius: 10px;
@@ -181,8 +194,7 @@ body {
 }
 .category a.catTitle {
   font-family:Arial, Helvetica, sans-serif;
-  font-size: 36px;
-  padding-left: 2vw;
+  font-size: 24px;
   color: black;
 }
 
@@ -195,14 +207,12 @@ body {
   word-break: break-word;
   grid-template-rows: 0fr 0fr;
 
-  margin-top: 5px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.7em;
 
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  padding-right: 5px;
+  padding-bottom: 0.2em;
+  padding-left: 0.7em;
 
   border-radius: 10px;
 
@@ -211,8 +221,8 @@ body {
   /*403d39 6c757def*/
 }
 .item:hover {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 0.7em;
+  margin-right: 0.5em;
 }
 .itemGray {
   background-color: #343a40;
@@ -225,11 +235,12 @@ body {
 
 .itemTitle {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 24px;
+  font-size: 16px;
+  margin-bottom: 0.2em;
 }
 .item a.desc {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 18px;
+  font-size: 14px;
 }
 .itemCloseBtn {
   -webkit-user-select: none; /* Safari */
@@ -257,20 +268,19 @@ body {
   margin-right: auto;
   margin-bottom: 20px;
 
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
   
   border-radius: 10px;
 
-  width: 90%;
+  width: 60%;
   height: 1.5em;
 
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  transition: box-shadow 0.3s ease, height 0.1s ease-in-out;
+  transition: box-shadow 0.3s ease, width 0.1s ease-in-out, height 0.1s ease-in-out;
   
   z-index: -1;
 
-  background-color: grey;  
 }
 .addCatFormContainer:hover {
   box-shadow: 0 0 10px gray;
@@ -282,11 +292,14 @@ body {
   cursor: auto;
 
   display: grid;
-  grid-template-columns: auto 50px;
-  grid-template-rows: auto auto;
-  
-  width: 90%;
-  height: 6.5em;
+  grid-template-columns: auto 50px 20px;
+  grid-gap: 1em;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  width: 80%;
+  height: 1.5em;
   z-index: -1;
 }
 .addCatFormContainer a.plus {
@@ -351,7 +364,7 @@ body {
 .addCatFormContainer a.addCatFormTitle {
 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 36px;
+  font-size: 24px;
   text-align: start;
 
   padding-top: 5px;
@@ -360,35 +373,39 @@ body {
 }
 .addCatFormContainer a.closeBtn {  
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 36px;
+  font-size: 24px;
   text-align: center;
-
-  padding-top: 5px;
 
   color: black;
 }
 .catNameInput {
-  font-size: 24px;
 
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  width: 100%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  font-size: 16px;
+
+  border-radius: 10px;
   border: none;
 
-  background-color: white;
+  padding-left: 1em;
+
+  width: 95%;
+
+  background-color: #00000000;
 }
 .catNameSubmitButton {
   cursor: pointer;
 
-  margin-bottom: 10px;
-
-  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   width: 100%;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
   border: none;
 
   background-color: goldenrod;

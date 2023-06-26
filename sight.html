@@ -40,7 +40,7 @@
 			newCatTitle.className = "catTitle";
 
 			const newItem = document.createElement("div");
-			newItem.className = "item";
+			newItem.className = "item itemGray";
 
 			const itemTitle = document.createElement("a");
 			itemTitle.className = "itemTitle";
@@ -133,20 +133,29 @@
 				catNameSubmit.value = "";
 
 				catNameSubmit.addEventListener("click", function() {
-					createCategory(catNameInput.value, "test desc");
+					if (catNameInput.value) {
+						createCategory(catNameInput.value, "test desc");
+						appendCatAddBtn();
+					} else {
+						catNameInput.focus();
+					}					
+				});
 
-					// re-place the add category btn so that it appears after the other elements
-					const contentContainer = document.getElementById("content");
-					const catFormContainer = document.body.querySelector(".addCatFormContainer");
-					contentContainer.removeChild(catFormContainer);
+				const closeFormBtn = document.createElement("div");
+				closeFormBtn.className = "catNameSubmitButton";
+				closeFormBtn.value = "X";
+
+				closeFormBtn.addEventListener("click", function() {
 					appendCatAddBtn();
 				});
 
 				// append to doc
-				btnContainer.append(formTitle);
-				btnContainer.append(closeBtn);
 				btnContainer.appendChild(catNameInput);
 				btnContainer.appendChild(catNameSubmit);
+				btnContainer.appendChild(closeFormBtn);
+
+				// focus on input field to allow input from btn press
+				catNameInput.focus();
 			}, 100)
 
 		}
@@ -184,7 +193,13 @@
 		}
 
 		function appendCatAddBtn() {
-			const contentContainer = document.getElementById("content")
+			const contentContainer = document.getElementById("content");
+
+			// re-place the add category btn so that it appears after the other elements
+			const catFormContainer = document.body.querySelector(".addCatFormContainer");
+			if (catFormContainer != null) {
+				contentContainer.removeChild(catFormContainer);
+			}		
 
 			const btnContainer = document.createElement("div");
 			btnContainer.className = "addCatFormContainer";
@@ -219,6 +234,25 @@
 			contentContainer.appendChild(cat);
 			contentContainer.appendChild(lineSeperator);
 
+			cat.addEventListener("click", function() {
+				if (cat.querySelector(".catNameInput") == null) {
+					const newEntry = document.createElement("input");
+					newEntry.type = "text";
+					newEntry.placeholder = "Enter the name of the new item";
+					newEntry.className = "catNameInput";
+					cat.appendChild(newEntry);
+
+					newEntry.focus();
+
+					newEntry.addEventListener("keypress", function(event) {
+						if (event.key == 'Enter') {
+							cat.removeChild(newEntry);
+							console.log("fdkjafghaujksdfg");
+						}
+					});
+				}
+			});
+
 		}
 
 		// create item
@@ -230,7 +264,7 @@
 		}
 	</script>
 	<div id="content" class="contentContainer">
-		<!--div id="test" class="category">
+		<div id="test" class="category">
 			<a class="catTitle">Category 1</a>
 			<div class="item itemGray">
 				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
@@ -244,25 +278,31 @@
 			<a class="catTitle">Category 2</a>
 			<div class="item itemGray">
 				<a class="itemTitle">Item title 2</a>
+				<hr class="titleSeperator">
 				<a class="desc">This is the items description</a>
 				<div class="item itemWhite">
 					<a class="itemTitle">Item title 1 layer 2</a>
+					<hr class="titleSeperator">
 					<a class="desc">This <br> is the items <br> description</a>
 				</div>
 				<div class="item itemWhite">
 					<a class="itemTitle">Item title 3</a>
+					<hr class="titleSeperator">
 					<a class="desc">Item 3 description</a>
 					<div class="item itemGray">
 						<a class="itemTitle">Item title 1 layer 2</a>
+						<hr class="titleSeperator">
 						<a class="desc">This <br> is the items <br> description</a>
 						<div class="item itemWhite">
 							<a class="itemTitle">Item title 1 layer 2</a>
+							<hr class="titleSeperator">
 							<a class="desc">This <br> is the items <br> description</a>
 						</div>
 					</div>
 				</div>
 				<div class="item itemWhite">
 					<a class="itemTitle">Item title 4</a>
+					<hr class="titleSeperator">
 					<a class="desc">Item 4 description</a>
 				</div>
 			</div>
@@ -273,9 +313,6 @@
 				<a class="itemTitle">Item title 5</a>
 			</div>
 		</div>
-		<div id="createButton" class="addBtn" onclick="addCatFormDropdown()">
-			<a class="plus">  +  </a>
-		<div-->
 	</div>
 	<script>
 		appendCatAddBtn();
