@@ -234,33 +234,105 @@
 			contentContainer.appendChild(cat);
 			contentContainer.appendChild(lineSeperator);
 
-			cat.addEventListener("click", function() {
-				if (cat.querySelector(".catNameInput") == null) {
-					const newEntry = document.createElement("input");
-					newEntry.type = "text";
-					newEntry.placeholder = "Enter the name of the new item";
-					newEntry.className = "catNameInput";
-					cat.appendChild(newEntry);
-
-					newEntry.focus();
-
-					newEntry.addEventListener("keypress", function(event) {
-						if (event.key == 'Enter') {
-							cat.removeChild(newEntry);
-							console.log("fdkjafghaujksdfg");
-						}
-					});
-				}
-			});
+			createItemInput(cat, 0);
 
 		}
 
+		function createItemInput(element, layer) {
+			// check if element is pressed
+			element.addEventListener("click", function(event) {
+				// run code if the item form does not already exist
+				if (element.querySelector(".newIteminput") != null) { return; }
+				// check if the element thats clicked is the element only
+				if (event.target === element) { 
+					const newItemContainer = document.createElement("div");
+					newItemContainer.className = "newItemContainer";
+
+					const newItemTitle = document.createElement("input");
+					newItemTitle.type = "text";
+					newItemTitle.placeholder = "Enter the name of the new item";
+					newItemTitle.className = "newIteminput";
+
+					const newItemDesc = document.createElement("input");
+					newItemDesc.type = "text";
+					newItemDesc.placeholder = "Enter a description for the item. (Optional)";
+					newItemDesc.className = "newIteminput";
+
+					const newItemColor = document.createElement("input");
+					newItemColor.type = "text";
+					newItemColor.placeholder = "Enter the color of the item. (Optional)";
+					newItemColor.className = "newIteminput";
+
+					const cancelBtn = document.createElement("input");
+					cancelBtn.type = "button";
+					cancelBtn.className = "newitemFormBtn";
+					cancelBtn.value = "Cancel";
+
+					const catNameSubmit = document.createElement("input");
+					catNameSubmit.type = "button";
+					catNameSubmit.className = "newitemFormBtn";
+					catNameSubmit.value = "Add";
+
+					element.appendChild(newItemContainer);
+					newItemContainer.appendChild(newItemTitle);
+					newItemContainer.appendChild(newItemDesc);
+					newItemContainer.appendChild(newItemColor);
+					newItemContainer.appendChild(cancelBtn);
+					newItemContainer.appendChild(catNameSubmit);
+
+					newItemContainer.focus();
+
+					newItemContainer.addEventListener("keyup", function(event) {
+						// if input is not enter, return
+						if (event.key != 'Enter') { return; }
+						if (event.key === 'Escape') { return; } // todo
+
+						// run code below if new title value is not empty
+						if (newItemTitle.value != "") {
+							const newLayer = parseInt(layer + 1);
+							const newItem = createItem(element, newItemTitle.value, newItemDesc.value, newLayer, "test");
+							createItemInput(newItem, newLayer);
+						}
+						element.removeChild(newItemContainer);
+					});
+				}
+			});
+		}
+
+
 		// create item
-		function createItem(parentDiv) {
+		function createItem(parentDiv, title, desc, layer, color) {
 			const itemContainer = document.createElement("div");
-			itemContainer.className = "item itemGray";
+
+			// use whether the layer is odd or not to decide the class to use
+			const layerOdd = layer % 2;
+			console.log(layerOdd);
+			if (layerOdd == 1) {
+				itemContainer.className = "item itemWhite";
+			} else {
+				itemContainer.className = "item itemGray";
+			}
+
+			const itemTitle = document.createElement("a");
+			itemTitle.className = "itemTitle";
+			itemTitle.textContent = title;
+
+			itemContainer.appendChild(itemTitle);
+
+			if (desc != "") {
+				const lineSeperator = document.createElement("hr");
+				lineSeperator.className = "titleSeperator";
+
+				const itemDesc = document.createElement("a");
+				itemDesc.className = "itemDesc";
+				itemDesc.textContent = desc;
+
+				itemContainer.appendChild(lineSeperator);
+				itemContainer.appendChild(itemDesc);
+			}
 
 			parentDiv.appendChild(itemContainer);
+			return itemContainer;
 		}
 	</script>
 	<div id="content" class="contentContainer">
