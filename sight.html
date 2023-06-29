@@ -112,6 +112,7 @@
 			btnContainer.classList.toggle("addCatFormContainerExpanded");
 
 			setTimeout(function(){
+				// add title?
 				const formTitle = document.createElement("a");
 				formTitle.className = "addCatFormTitle";
 				formTitle.text = "Create category";
@@ -127,6 +128,13 @@
 				catNameInput.type = "text";
 				catNameInput.name = "catName";
 				catNameInput.placeholder = "Enter the name of the category";
+
+				const catDescInput = document.createElement("input");
+				catDescInput.className = "catNameInput";
+				catDescInput.type = "text";
+				catDescInput.name = "catName";
+				catDescInput.placeholder = "Enter a description for the category. (Optional)";
+
 				const catNameSubmit = document.createElement("input");
 				catNameSubmit.className = "catNameSubmitButton";
 				catNameSubmit.type = "submit";
@@ -134,7 +142,7 @@
 
 				catNameSubmit.addEventListener("click", function() {
 					if (catNameInput.value) {
-						createCategory(catNameInput.value, "test desc");
+						createCategory(catNameInput.value, catDescInput.value);
 						appendCatAddBtn();
 					} else {
 						catNameInput.focus();
@@ -151,8 +159,9 @@
 
 				// append to doc
 				btnContainer.appendChild(catNameInput);
-				btnContainer.appendChild(catNameSubmit);
+				btnContainer.appendChild(catDescInput);
 				btnContainer.appendChild(closeFormBtn);
+				btnContainer.appendChild(catNameSubmit);
 
 				// focus on input field to allow input from btn press
 				catNameInput.focus();
@@ -192,6 +201,26 @@
 			container.appendChild(formContainer);
 		}
 
+
+		function appendOptionsBar(container) {
+			const optionsBar = document.createElement("div");
+			optionsBar.className = "optionsBar";
+
+			const plusBtn = document.createElement('img');
+			plusBtn.src = 'assets/plus.svg';
+			plusBtn.alt = 'SVG Image';
+			plusBtn.className = "plusBtn";
+
+			optionsBar.appendChild(plusBtn);
+
+			container.append(optionsBar);
+
+			return {
+				add: plusBtn
+				//edit: 
+			}
+		}
+
 		function appendCatAddBtn() {
 			const contentContainer = document.getElementById("content");
 
@@ -215,6 +244,22 @@
 			contentContainer.appendChild(btnContainer);
 		}
 
+		function appendDesc(container, desc) {
+			if (desc == "") { return; }
+
+			const lineSeperator = document.createElement("hr");
+			lineSeperator.className = "titleSeperator";
+
+			const descElement = document.createElement("a");
+			descElement.className = "desc";
+			descElement.textContent = desc;
+
+			container.appendChild(lineSeperator);
+			container.appendChild(descElement);
+
+			return descElement;
+		}
+
 		function createCategory(title, desc) {
 
 			const cat = document.createElement("div");
@@ -226,6 +271,17 @@
 
 			cat.append(catTitle);
 
+			const plusBtn = document.createElement('img');
+			plusBtn.src = 'assets/plus.svg';
+			plusBtn.alt = 'SVG Image';
+			plusBtn.className = "plusBtn";
+
+			cat.appendChild(plusBtn);
+
+			const optionsBar = appendOptionsBar(cat);
+
+			appendDesc(cat, desc);
+
 			// add line seperator
 			const lineSeperator = document.createElement("hr");
 			lineSeperator.className = "seperator";
@@ -234,23 +290,24 @@
 			contentContainer.appendChild(cat);
 			contentContainer.appendChild(lineSeperator);
 
-			createItemInput(cat, 0);
+			createItemInput(cat, optionsBar.add, 0);
 
 		}
 
-		function createItemInput(element, layer) {
+		// adds listeners to click event and creates and formats item form element
+		function createItemInput(element, listenerElement, layer) {
 			// check if element is pressed
-			element.addEventListener("click", function(event) {
+			listenerElement.addEventListener("click", function(event) {
 				// run code if the item form does not already exist
 				if (element.querySelector(".newIteminput") != null) { return; }
 				// check if the element thats clicked is the element only
-				if (event.target === element) { 
+				if (event.target === listenerElement) { 
 					const newItemContainer = document.createElement("div");
 					newItemContainer.className = "newItemContainer";
 
 					const newItemTitle = document.createElement("input");
 					newItemTitle.type = "text";
-					newItemTitle.placeholder = "Enter the name of the new item";
+					newItemTitle.placeholder = "Enter the name of the item";
 					newItemTitle.className = "newIteminput";
 
 					const newItemDesc = document.createElement("input");
@@ -272,15 +329,17 @@
 					catNameSubmit.type = "button";
 					catNameSubmit.className = "newitemFormBtn";
 					catNameSubmit.value = "Add";
-
-					element.appendChild(newItemContainer);
+					
 					newItemContainer.appendChild(newItemTitle);
 					newItemContainer.appendChild(newItemDesc);
 					newItemContainer.appendChild(newItemColor);
 					newItemContainer.appendChild(cancelBtn);
 					newItemContainer.appendChild(catNameSubmit);
+					element.appendChild(newItemContainer);
 
-					newItemContainer.focus();
+					// element.classList.toggle("newItemContainerExpanded");
+
+					newItemTitle.focus();
 
 					newItemContainer.addEventListener("keyup", function(event) {
 						// if input is not enter, return
@@ -291,8 +350,28 @@
 						if (newItemTitle.value != "") {
 							const newLayer = parseInt(layer + 1);
 							const newItem = createItem(element, newItemTitle.value, newItemDesc.value, newLayer, "test");
-							createItemInput(newItem, newLayer);
+							createItemInput(newItem.container, newItem.createItemBtn, newLayer);
+
+							element.removeChild(newItemContainer);
+							return;
 						}
+						newItemTitle.focus();
+					});
+
+					catNameSubmit.addEventListener("click", function() {
+						// run code below if new title value is not empty
+						if (newItemTitle.value != "") {
+							const newLayer = parseInt(layer + 1);
+							const newItem = createItem(element, newItemTitle.value, newItemDesc.value, newLayer, "test");
+							createItemInput(newItem.container, newItem.createItemBtn, newLayer);
+
+							element.removeChild(newItemContainer);
+							return;
+						}
+						newItemTitle.focus();
+					});
+
+					cancelBtn.addEventListener("click", function() {
 						element.removeChild(newItemContainer);
 					});
 				}
@@ -319,6 +398,8 @@
 
 			itemContainer.appendChild(itemTitle);
 
+			const optionsBar = appendOptionsBar(itemContainer);
+
 			if (desc != "") {
 				const lineSeperator = document.createElement("hr");
 				lineSeperator.className = "titleSeperator";
@@ -332,11 +413,15 @@
 			}
 
 			parentDiv.appendChild(itemContainer);
-			return itemContainer;
+			return {
+				container: itemContainer,
+				createItemBtn: optionsBar.add
+			};
 		}
+		
 	</script>
 	<div id="content" class="contentContainer">
-		<div id="test" class="category">
+		<!--div id="test" class="category">
 			<a class="catTitle">Category 1</a>
 			<div class="item itemGray">
 				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
@@ -384,9 +469,10 @@
 			<div class="item itemGray">
 				<a class="itemTitle">Item title 5</a>
 			</div>
-		</div>
+		</div-->
 	</div>
 	<script>
 		appendCatAddBtn();
+		appendOptionsBar();
 	</script>
 </head>
