@@ -2,477 +2,484 @@
 <head>
 	<link rel="stylesheet" href="sight.css">
 	<nav class="naviBar">
-		<a id="btn1" class="left" onclick="btnClick()">Button1</a>
-		<a id="btn2" class="left" onclick="createItem()">Btn2</a>
+		<a id="btn1" class="left" onclick="">Button1</a>
+		<a id="btn2" class="left" onclick="">Btn2</a>
 		<a class="seperator"></a>
-		<a id="btn3" class="right" onclick="createCat()">BTN03</a>
+		<a id="btn3" class="right" onclick="">BTN03</a>
 		<!--input class="searchBar" placeholder="Search..."-->
-		<!--div id="submit" class="submitButton" onclick="test()"-->
-		<a id="btn4" class="right" onclick="addCategoryForm()">+</a>
+		<!--div id="submit" class="submitButton" onclick=""-->
+		<a id="btn4" class="right" onclick="">+</a>
 	</nav>
+	<div id="content" class="contentContainer">
+	</div>
 	<script>
-		function btnClick() {
-			const a = document.createElement("p");
-			a.textContent = "button press";
-			document.getElementById("content").appendChild(a);
-		}
-		function createItemOld() {
-			const newItem = document.createElement("div");
-			newItem.className = "item";
+		function createForm(title, desc, color) {
+			const formContainer = document.createElement("div");
+			formContainer.className = "newItemContainer";
 
-			const itemTitle = document.createElement("a");
-			itemTitle.className = "itemTitle";
-			const itemDesc = document.createElement("a");
-			itemDesc.className = "desc";
+			const formTitle = document.createElement("input");
+			formTitle.type = "text";
+			formTitle.placeholder = "Enter the name of the item";
+			formTitle.value = title;
+			formTitle.className = "catInput";
 
-			newItem.appendChild(itemTitle);
-			newItem.appendChild(itemDesc);
+			const formDesc = document.createElement("input");
+			formDesc.type = "text";
+			formDesc.placeholder = "Enter a description for the item. (Optional)";
+			formDesc.value = desc;
+			formDesc.className = "catInput";
 
-			document.getElementById("content").appendChild(newItem);
-		}
+			const formColor = document.createElement("input");
+			formColor.type = "text";
+			formColor.placeholder = "Enter the color of the item. (Optional)";
+			formColor.value = color;
+			formColor.className = "catInput";
 
-		function createCat() {
-			const newCat = document.createElement("div");
-			newCat.className = "category";
+			const formCloseBtn = document.createElement("input");
+			formCloseBtn.type = "button";
+			formCloseBtn.className = "catFormBtn";
+			formCloseBtn.value = "Cancel";
 
-			const newCatTitle = document.createElement("a");
-			newCatTitle.text = "fhjnkdshnfgkjadhngkd";
-			newCatTitle.className = "catTitle";
+			const formSubmitBtn = document.createElement("input");
+			formSubmitBtn.type = "button";
+			formSubmitBtn.className = "catFormBtn";
+			formSubmitBtn.value = "Add";
 
-			const newItem = document.createElement("div");
-			newItem.className = "item itemGray";
+			formContainer.append(formTitle);
+			formContainer.append(formDesc);
+			formContainer.append(formColor);
+			formContainer.append(formCloseBtn);
+			formContainer.append(formSubmitBtn);
 
-			const itemTitle = document.createElement("a");
-			itemTitle.className = "itemTitle";
-			itemTitle.text = "jfiodasjfgojgo";
-			const itemDesc = document.createElement("a");
-			itemDesc.text = "fjkidklajglas";
-			itemDesc.className = "desc";
-
-			newItem.appendChild(itemTitle);
-
-			newItem.appendChild(itemDesc);
-
-			newCat.append(newCatTitle);
-			newCat.append(newItem);
-
-			// add line seperator
-			const lineSeperator = document.createElement("hr");
-			lineSeperator.className = "seperator";
-
-			
-			const container = document.getElementById("content");
-			container.appendChild(newCat);
-			container.appendChild(lineSeperator);
+			return {
+				container: formContainer,
+				title: formTitle,
+				desc: formDesc,
+				color: formColor,
+				submitBtn: formSubmitBtn,
+				closeBtn: formCloseBtn
+			}
 		}
 		
-		function hideForm(elem) {
-			document.body.removeChild(elem);
-		}
-		
-		function addCategoryForm() {
-			const background = document.createElement("div");
-			background.className = "addCatFormPopupBackground";
-			document.body.appendChild(background);
-			document.body.style.overflow = "hidden";
+		function appendNode(node) {
 
-			background.addEventListener("click", function() {
-				document.body.removeChild(background);
-				document.body.removeChild(form);
-				document.body.style.overflow = "auto";
-			});
+			if (node.layer == -1) {
+
+			}
+		}
+
+		class createNodeBtn {
+			#container;
+			#icon;
+			#expanded;
+			#form;
+
+			constructor() {
+				this.init();
+			}
+
+			init() {
+				this.expanded = false;
+
+				this.container = document.createElement("div");
+				this.container.className = "addCatFormContainer";
+				this.container.addEventListener('click', () => {
+					this.expand();
+				});
+
+				this.icon = document.createElement("a");
+				this.icon.className   = "plus";
+				this.icon.textContent = "+";
+
+				this.container.append(this.icon);
+
+				const contentContainer = document.getElementById("content");
+				contentContainer.append(this.container);
+			}
+
+			expand() {
+				if (this.expanded == true) { return; }
+				this.expanded = true;
+				this.form = createForm("", "", "");
+
+				this.container.removeChild(this.icon);
+				this.container.classList.toggle("addCatFormContainerExpanded");
+
+				setTimeout(() => {
+					this.container.append(this.form.container);
+					this.form.title.focus();
+					this.form.closeBtn.addEventListener('click', () => {
+						this.removeSelf();
+						new createNodeBtn();
+					});
+
+					this.form.submitBtn.addEventListener('click', () => {
+						const formTitleValue = (this.form.title.value).trim();
+						const formDescValue = (this.form.desc.value).trim();
+						if (formTitleValue === "") {
+							this.form.title.focus();
+							return;
+						}
+						const contentContainer = document.getElementById("content");
+						
+						new node(contentContainer, formTitleValue, formDescValue, "", "", -1).container;
+
+						this.reAppend();
+					});
+				}, 100);
+			}
+
+			removeSelf() {
+				const contentContainer = document.getElementById("content");
+				contentContainer.removeChild(this.container);
+			}
+
+			// function to remove self and append new instance of class at the bottom of the content
+			reAppend() {
+				this.removeSelf();
+				new createNodeBtn();
+			}
+		}
+
+		function titleElement(titleContent) {
+			const title = document.createElement('a');
+			title.className   = 'title';
+			title.textContent = titleContent;
+
+			return title;
+		}
+
+		function descElement(descContent) {
+			const desc = document.createElement('a');
+			desc.className   = 'desc';
+			desc.textContent = descContent;
+
+			return desc;
+		}
+
+		function tickboxElement(ticked) {
+			const tickbox = document.createElement('input');
+			tickbox.type = 'checkbox';
+			tickbox.className = 'tickbox';
+			tickbox.checked = ticked;
+			tickbox.disabled = true;
+
+			return tickbox;
+		}
+
+		function editIcon() {
+			const editBtn = document.createElement('img');
+			editBtn.src   = 'assets/edit.svg';
+			editBtn.alt   = 'SVG Image';
+			editBtn.className = 'optionBtn';
+
+			return editBtn;
+		}
+
+		function plusIcon() {
+			const plusIcon = document.createElement('img');
+			plusIcon.src   = 'assets/plus.svg';
+			plusIcon.alt   = 'SVG Image';
+			plusIcon.className = 'optionBtn';
+
+			return plusIcon;
+		}
+
+		function crossIcon() {
+			const crossIcon = document.createElement('img');
+			crossIcon.src   = 'assets/cross.svg';
+			crossIcon.alt   = 'SVG Image';
+			crossIcon.className = 'optionBtn';
+
+			return crossIcon;
+		}
+
+		class popupView {
+			constructor(content) {
+				const background = document.createElement("div");
+				background.className = "addCatFormPopupBackground";
+				document.body.appendChild(background);
+				document.body.style.overflow = "hidden";
+
+				background.addEventListener("click", function() {
+					document.body.removeChild(background);
+					document.body.removeChild(form);
+					document.body.style.overflow = "auto";
+				});
 
 			const form = document.createElement("div");
 			form.className = "addCatFormPopup";
 			document.body.appendChild(form);
 
-			const createCatBtn = document.createElement("a");
-			createCatBtn.className = addBtn;
-			createCatBtn.text = "+";
-
-			document.getElementById("content").appendChild(createCatBtn);
-
-		}
-
-		function closeAddForm() {
-
-		}
-
-		// sep
-
-		function dropdownCatAddForm(btnContainer) {
-			// const container = document.getElementById("content");
-			const element = document.querySelector(".addCatFormContainer");
-
-			// remove plus icon
-			const plusIcon = document.body.querySelector(".plus");
-			btnContainer.removeChild(plusIcon);
-
-			// resize btn
-			btnContainer.classList.toggle("addCatFormContainerExpanded");
-
-			setTimeout(function(){
-				// add title?
-				const formTitle = document.createElement("a");
-				formTitle.className = "addCatFormTitle";
-				formTitle.text = "Create category";
-
-				// change styling for consistancy?
-				const closeBtn = document.createElement("a");
-				closeBtn.className = "closeBtn";
-				closeBtn.text = "";
-
-				// cat form
-				const catNameInput = document.createElement("input");
-				catNameInput.className = "catNameInput";
-				catNameInput.type = "text";
-				catNameInput.name = "catName";
-				catNameInput.placeholder = "Enter the name of the category";
-
-				const catDescInput = document.createElement("input");
-				catDescInput.className = "catNameInput";
-				catDescInput.type = "text";
-				catDescInput.name = "catName";
-				catDescInput.placeholder = "Enter a description for the category. (Optional)";
-
-				const catNameSubmit = document.createElement("input");
-				catNameSubmit.className = "catNameSubmitButton";
-				catNameSubmit.type = "submit";
-				catNameSubmit.value = "";
-
-				catNameSubmit.addEventListener("click", function() {
-					if (catNameInput.value) {
-						createCategory(catNameInput.value, catDescInput.value);
-						appendCatAddBtn();
-					} else {
-						catNameInput.focus();
-					}					
-				});
-
-				const closeFormBtn = document.createElement("div");
-				closeFormBtn.className = "catNameSubmitButton";
-				closeFormBtn.value = "X";
-
-				closeFormBtn.addEventListener("click", function() {
-					appendCatAddBtn();
-				});
-
-				// append to doc
-				btnContainer.appendChild(catNameInput);
-				btnContainer.appendChild(catDescInput);
-				btnContainer.appendChild(closeFormBtn);
-				btnContainer.appendChild(catNameSubmit);
-
-				// focus on input field to allow input from btn press
-				catNameInput.focus();
-			}, 100)
-
-		}
-
-		function dropdownCatAddFormAlt(btnContainer) {
-			const container = document.getElementById("content");
-
-			// remove button
-			container.removeChild(btnContainer);
-
-			// form container
-			const formContainer = document.createElement("div");
-			formContainer.className = "addCatFormContainer";
-
-			const formTitle = document.createElement("a");
-			formTitle.className = "addCatFormTitle";
-			formTitle.text = "Create category";
-
-				// to remove
-			const closeBtn = document.createElement("a");
-			closeBtn.className = "closeBtn";
-			closeBtn.text = "X";
-
-			const catNameInput = document.createElement("input");
-			catNameInput.className = "catNameInput";
-			const catNameSubmit = document.createElement("div");
-			catNameSubmit.className = "catNameSubmitButton";
-
-			// append to doc
-			formContainer.append(formTitle);
-			formContainer.append(closeBtn);
-			formContainer.appendChild(catNameInput);
-			formContainer.appendChild(catNameSubmit);
-			container.appendChild(formContainer);
-		}
-
-
-		function appendOptionsBar(container) {
-			const optionsBar = document.createElement("div");
-			optionsBar.className = "optionsBar";
-
-			const plusBtn = document.createElement('img');
-			plusBtn.src = 'assets/plus.svg';
-			plusBtn.alt = 'SVG Image';
-			plusBtn.className = "plusBtn";
-
-			optionsBar.appendChild(plusBtn);
-
-			container.append(optionsBar);
-
-			return {
-				add: plusBtn
-				//edit: 
 			}
 		}
 
-		function appendCatAddBtn() {
-			const contentContainer = document.getElementById("content");
-
-			// re-place the add category btn so that it appears after the other elements
-			const catFormContainer = document.body.querySelector(".addCatFormContainer");
-			if (catFormContainer != null) {
-				contentContainer.removeChild(catFormContainer);
-			}		
-
-			const btnContainer = document.createElement("div");
-			btnContainer.className = "addCatFormContainer";
-			btnContainer.addEventListener("click", function() {
-				dropdownCatAddForm(btnContainer)
-			});
-
-			const plusIcon = document.createElement("a");
-			plusIcon.className = "plus";
-			plusIcon.textContent = "+";
-
-			btnContainer.appendChild(plusIcon);
-			contentContainer.appendChild(btnContainer);
+		class optionsBar {
+			#container
+			#addBtn
+			#editBtn
+			constructor() {
+				this.container = document.createElement('div');
+				this.container.className = 'optionsBar';
+				
+				this.addBtn   = plusIcon();
+				this.editBtn  = editIcon();
+				this.crossBtn = crossIcon();
+				
+				this.container.append(this.editBtn);
+				this.container.append(this.addBtn);
+				this.container.append(this.crossBtn);
+			}
 		}
 
-		function appendDesc(container, desc) {
-			if (desc == "") { return; }
+		class node {
+			#parent
+			#container
+			#title;
+			#desc;
+			#descSeperator;
+			#color;
+			#tickbox;
+			#layer;
+			#optionsBar;
+			#form;
+			#formOpened
+			#catSeperator
+			constructor(parent, title, desc, color, ticked, layer) {
+				this.parent = parent;
+				this.layer  = layer;
+				this.title = titleElement(title);
+				this.desc = descElement(desc);
+				this.descSeperator = document.createElement("hr");
+				this.descSeperator.className = "titleSeperator";
+				this.tickbox = tickboxElement(ticked);
+				this.optionsBar = new optionsBar();
 
-			const lineSeperator = document.createElement("hr");
-			lineSeperator.className = "titleSeperator";
+				this.init();
+			}
+			init() {
+				this.container = document.createElement('div');
+				this.container.className = this.checkLayer(this.layer); // todo - update function?
+				this.container.draggable = true;
 
-			const descElement = document.createElement("a");
-			descElement.className = "desc";
-			descElement.textContent = desc;
-
-			container.appendChild(lineSeperator);
-			container.appendChild(descElement);
-
-			return descElement;
-		}
-
-		function createCategory(title, desc) {
-
-			const cat = document.createElement("div");
-			cat.className = "category";
-
-			const catTitle = document.createElement("a");
-			catTitle.text = title;
-			catTitle.className = "catTitle";
-
-			cat.append(catTitle);
-
-			const plusBtn = document.createElement('img');
-			plusBtn.src = 'assets/plus.svg';
-			plusBtn.alt = 'SVG Image';
-			plusBtn.className = "plusBtn";
-
-			cat.appendChild(plusBtn);
-
-			const optionsBar = appendOptionsBar(cat);
-
-			appendDesc(cat, desc);
-
-			// add line seperator
-			const lineSeperator = document.createElement("hr");
-			lineSeperator.className = "seperator";
-			
-			const contentContainer = document.getElementById("content");
-			contentContainer.appendChild(cat);
-			contentContainer.appendChild(lineSeperator);
-
-			createItemInput(cat, optionsBar.add, 0);
-
-		}
-
-		// adds listeners to click event and creates and formats item form element
-		function createItemInput(element, listenerElement, layer) {
-			// check if element is pressed
-			listenerElement.addEventListener("click", function(event) {
-				// run code if the item form does not already exist
-				if (element.querySelector(".newIteminput") != null) { return; }
-				// check if the element thats clicked is the element only
-				if (event.target === listenerElement) { 
-					const newItemContainer = document.createElement("div");
-					newItemContainer.className = "newItemContainer";
-
-					const newItemTitle = document.createElement("input");
-					newItemTitle.type = "text";
-					newItemTitle.placeholder = "Enter the name of the item";
-					newItemTitle.className = "newIteminput";
-
-					const newItemDesc = document.createElement("input");
-					newItemDesc.type = "text";
-					newItemDesc.placeholder = "Enter a description for the item. (Optional)";
-					newItemDesc.className = "newIteminput";
-
-					const newItemColor = document.createElement("input");
-					newItemColor.type = "text";
-					newItemColor.placeholder = "Enter the color of the item. (Optional)";
-					newItemColor.className = "newIteminput";
-
-					const cancelBtn = document.createElement("input");
-					cancelBtn.type = "button";
-					cancelBtn.className = "newitemFormBtn";
-					cancelBtn.value = "Cancel";
-
-					const catNameSubmit = document.createElement("input");
-					catNameSubmit.type = "button";
-					catNameSubmit.className = "newitemFormBtn";
-					catNameSubmit.value = "Add";
-					
-					newItemContainer.appendChild(newItemTitle);
-					newItemContainer.appendChild(newItemDesc);
-					newItemContainer.appendChild(newItemColor);
-					newItemContainer.appendChild(cancelBtn);
-					newItemContainer.appendChild(catNameSubmit);
-					element.appendChild(newItemContainer);
-
-					// element.classList.toggle("newItemContainerExpanded");
-
-					newItemTitle.focus();
-
-					newItemContainer.addEventListener("keyup", function(event) {
-						// if input is not enter, return
-						if (event.key != 'Enter') { return; }
-						if (event.key === 'Escape') { return; } // todo
-
-						// run code below if new title value is not empty
-						if (newItemTitle.value != "") {
-							const newLayer = parseInt(layer + 1);
-							const newItem = createItem(element, newItemTitle.value, newItemDesc.value, newLayer, "test");
-							createItemInput(newItem.container, newItem.createItemBtn, newLayer);
-
-							element.removeChild(newItemContainer);
-							return;
-						}
-						newItemTitle.focus();
-					});
-
-					catNameSubmit.addEventListener("click", function() {
-						// run code below if new title value is not empty
-						if (newItemTitle.value != "") {
-							const newLayer = parseInt(layer + 1);
-							const newItem = createItem(element, newItemTitle.value, newItemDesc.value, newLayer, "test");
-							createItemInput(newItem.container, newItem.createItemBtn, newLayer);
-
-							element.removeChild(newItemContainer);
-							return;
-						}
-						newItemTitle.focus();
-					});
-
-					cancelBtn.addEventListener("click", function() {
-						element.removeChild(newItemContainer);
-					});
+				this.container.ondragstart = (event) => {
+					if (event.target === this.container) {
+						console.log(event.target);
+						console.log("drag started");
+					}
 				}
-			});
-		}
+				this.container.ondragend = (event) => {
+					if (event.target !== this.container) {
+						return;
+					}
+					const element = document.elementFromPoint(event.clientX, event.clientY);
 
+					console.log("drag end");
+					//console.log(event.target);
+					console.log("Element under cursor:", element);
 
-		// create item
-		function createItem(parentDiv, title, desc, layer, color) {
-			const itemContainer = document.createElement("div");
+					if (element.className == 'category'
+					||  element.classList.contains('item')) {
+						element.append(this.container);
+					}
 
-			// use whether the layer is odd or not to decide the class to use
-			const layerOdd = layer % 2;
-			console.log(layerOdd);
-			if (layerOdd == 1) {
-				itemContainer.className = "item itemWhite";
-			} else {
-				itemContainer.className = "item itemGray";
+				}
+				/*
+				notes: update layer on move
+				*/
+
+				this.container.append(this.title);
+				this.container.append(this.tickbox);
+
+				if (this.desc.textContent != "") {
+					this.container.append(this.descSeperator);
+					this.container.append(this.desc);
+				}
+
+				this.container.append(this.optionsBar.container);
+
+				this.parent.append(this.container);
+				if(this.layer == -1) {
+					this.catSeperator= document.createElement("hr");
+					this.catSeperator.className = "seperator";
+					this.parent.append(this.catSeperator);
+				}
+
+				this.initTickDetection();
+				this.initAddBtnDetection();
+				this.initEditDetection();
+				// this.initHoverDetection();
+				// test(this.container);
+				this.initDeleteDection();
 			}
 
-			const itemTitle = document.createElement("a");
-			itemTitle.className = "itemTitle";
-			itemTitle.textContent = title;
-
-			itemContainer.appendChild(itemTitle);
-
-			const optionsBar = appendOptionsBar(itemContainer);
-
-			if (desc != "") {
-				const lineSeperator = document.createElement("hr");
-				lineSeperator.className = "titleSeperator";
-
-				const itemDesc = document.createElement("a");
-				itemDesc.className = "itemDesc";
-				itemDesc.textContent = desc;
-
-				itemContainer.appendChild(lineSeperator);
-				itemContainer.appendChild(itemDesc);
+			checkLayer(layer) {
+				if (layer == -1) { return "category"; }
+				const layerOdd = layer % 2;
+				if (layerOdd == 1) { return "item itemWhite"; }
+				else               { return "item itemGray";	}
 			}
 
-			parentDiv.appendChild(itemContainer);
-			return {
-				container: itemContainer,
-				createItemBtn: optionsBar.add
-			};
+			initTickDetection() {
+				this.container.addEventListener('click', (event) => {
+					if (event.target == this.container || event.target == this.tickbox) {
+						this.tickbox.checked = !this.tickbox.checked;
+						if (this.tickbox.checked) {
+							this.title.style.textDecoration = "line-through";
+						} else {
+							this.title.style.textDecoration = "none";
+						}
+					}
+				});
+			}
+
+			initAddBtnDetection() {
+				this.optionsBar.addBtn.addEventListener('click', (event) => {
+					if (this.formOpened == 1) {
+						this.form.title.focus();
+						return;
+					} else { this.formOpened = 1; }
+					
+					this.form = createForm("", "", "");
+					this.container.append(this.form.container);
+					this.form.title.focus();
+
+					this.form.closeBtn.addEventListener('click', () => {
+						this.removeForm();
+					});
+
+					this.form.submitBtn.addEventListener('click', () => {
+						const formTitleValue = (this.form.title.value).trim();
+						const formDescValue = (this.form.desc.value).trim();
+						if (formTitleValue === "") {
+							this.form.title.focus();
+							return;
+						}
+						new node(this.container, formTitleValue, formDescValue, "", "", (this.layer + 1)).container;
+						this.removeForm();
+						this.optionsBar.container.classList.remove('optionsHover');
+					});
+				});
+			}
+
+			initEditDetection() {
+				this.optionsBar.editBtn.addEventListener('click', (event) => {
+					if (this.formOpened == 1) {	return;	}
+
+					this.form = createForm(this.title.textContent, this.desc.textContent, "");
+					if (this.desc.textContent != "") {
+						this.desc.insertAdjacentElement('afterend', this.form.container);
+					} else {
+						this.title.insertAdjacentElement('afterend', this.form.container);
+					}
+					this.form.title.focus();
+
+					this.form.closeBtn.addEventListener('click', () => {
+						this.removeForm();
+					});
+
+					this.form.submitBtn.addEventListener('click', () => {
+						const formTitleValue = (this.form.title.value).trim();
+						const formDescValue = (this.form.desc.value).trim();
+						if (formTitleValue === "") {
+							this.form.title.focus();
+							return;
+						}
+						this.removeForm();
+
+						this.title.textContent = formTitleValue;
+
+						if (formDescValue == "" && this.desc.textContent != "") {
+							this.removeDesc();
+							return;
+						}
+						if (formDescValue != "" && this.desc.textContent == "") {
+							this.appendDesc();
+						}
+						
+						this.desc.textContent = formDescValue;
+						this.optionsBar.container.classList.remove('optionsHover');
+					});
+				});
+			}
+
+			initDeleteDection() {
+				this.optionsBar.crossBtn.addEventListener('click', () => {
+					if (this.layer == -1) {
+						this.parent.removeChild(this.catSeperator);
+					}
+					this.parent.removeChild(this.container);
+					// this.popupView("Enter ...");
+				});
+			}
+
+			initHoverDetection() {
+				document.body.addEventListener('mouseover', (event) => {
+					console.log(event.target)
+					if (event.target === this.container
+					|| event.target === this.optionsBar.addBtn
+					|| event.target === this.optionsBar.editBtn
+					|| event.target === this.optionsBar.crossBtn
+					|| event.target === this.title
+					|| event.target === this.desc
+					) {
+						this.optionsBar.container.classList.add('optionsHover');
+					}
+
+					if (event.target !== this.container) {
+						this.optionsBar.container.classList.remove('optionsHover');
+					}
+					// issues with leaving the element
+					/* possible solution to create document body event listener
+					rather than sep listeners for each node */
+				});
+			}
+
+			removeForm() {
+				this.container.removeChild(this.form.container);
+				this.formOpened = 0;
+			}
+
+			appendDesc() {
+				this.title.insertAdjacentElement("afterend", this.descSeperator);
+				this.descSeperator.insertAdjacentElement("afterend", this.desc);
+			}
+
+			removeDesc() {
+				this.desc.textContent = "";
+				this.container.removeChild(this.descSeperator);
+				this.container.removeChild(this.desc);
+			}
+
+			popupView(content) {
+				const background = document.createElement("div");
+				background.className = "addCatFormPopupBackground";
+
+				const formContainer = document.createElement('div');
+				formContainer.className = "addCatFormPopup";
+
+				const title = document.createElement('a');
+				title.className = 'title';
+				title.textContent = content;
+
+				formContainer.append(title);
+				background.append(formContainer);
+				document.body.append(background);
+				document.body.style.overflow = "hidden";
+
+				background.addEventListener("click", function() {
+					document.body.removeChild(background);
+					document.body.style.overflow = "auto";
+				});
+			}
 		}
+
+		const contentContainer = document.getElementById("content");
 		
-	</script>
-	<div id="content" class="contentContainer">
-		<!--div id="test" class="category">
-			<a class="catTitle">Category 1</a>
-			<div class="item itemGray">
-				<a class="itemTitle">dhjsafgjadsgfjasdk</a>
-				<a class="itemTitle">Item title 1</a>
-				<a class="itemDesc">This is the items description</a>
-				<div class="itemCloseBtn">X</div>
-			</div>
-		</div>
-		<hr class="seperator">
-		<div class="category">
-			<a class="catTitle">Category 2</a>
-			<div class="item itemGray">
-				<a class="itemTitle">Item title 2</a>
-				<hr class="titleSeperator">
-				<a class="desc">This is the items description</a>
-				<div class="item itemWhite">
-					<a class="itemTitle">Item title 1 layer 2</a>
-					<hr class="titleSeperator">
-					<a class="desc">This <br> is the items <br> description</a>
-				</div>
-				<div class="item itemWhite">
-					<a class="itemTitle">Item title 3</a>
-					<hr class="titleSeperator">
-					<a class="desc">Item 3 description</a>
-					<div class="item itemGray">
-						<a class="itemTitle">Item title 1 layer 2</a>
-						<hr class="titleSeperator">
-						<a class="desc">This <br> is the items <br> description</a>
-						<div class="item itemWhite">
-							<a class="itemTitle">Item title 1 layer 2</a>
-							<hr class="titleSeperator">
-							<a class="desc">This <br> is the items <br> description</a>
-						</div>
-					</div>
-				</div>
-				<div class="item itemWhite">
-					<a class="itemTitle">Item title 4</a>
-					<hr class="titleSeperator">
-					<a class="desc">Item 4 description</a>
-				</div>
-			</div>
-			<div class="item itemGray">
-				<a class="itemTitle">Item title 4</a>
-			</div>
-			<div class="item itemGray">
-				<a class="itemTitle">Item title 5</a>
-			</div>
-		</div-->
-	</div>
-	<script>
-		appendCatAddBtn();
-		appendOptionsBar();
+		// test nodes
+		//new node(contentContainer, "title", "desc", "", "", -1);
+		//new node(contentContainer, "title", "", "", "", -1);
+
+		new createNodeBtn();
 	</script>
 </head>
