@@ -1,0 +1,27 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaowenRong/todo.git"
+  },
+  "keywords": [
+    "html",
+    "JavaScript",
+    "CSS"
+  ],
+  "author": "Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaowenRong/todo/issues"
+  },
+  "homepage": "https://github.com/HaowenRong/todo#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
