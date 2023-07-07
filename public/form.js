@@ -30,7 +30,7 @@ export function createForm(title, desc, color) {
   const formSubmitBtn = document.createElement("input");
   formSubmitBtn.type = "button";
   formSubmitBtn.className = "catFormBtn";
-  formSubmitBtn.value = "Add";
+  formSubmitBtn.value = "Submit";
 
   formContainer.append(formTitle);
   formContainer.append(formDesc);
