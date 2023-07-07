@@ -60,7 +60,7 @@ body {
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  height: 46px;
+  height: 2.5em;
   border-radius: 10px;
 
   background-color: #6c757def;
@@ -74,7 +74,7 @@ body {
   padding-left: 10px;
 
   height: 50%;
-  width: 20vw;
+  width: 20em;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   border: none;
@@ -104,7 +104,7 @@ body {
   cursor: pointer;
 
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-left: 10px;
 
@@ -113,6 +113,7 @@ body {
   padding-left: 10px;
   padding-right: 10px;
 
+  width: 10em;
   height: 50%;
   border-radius: 6px;
 
@@ -122,7 +123,7 @@ body {
   cursor: pointer;
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   margin-right: 10px;
 
@@ -131,6 +132,7 @@ body {
   padding-left: 10px;
   padding-right: 10px;
 
+  width: 10em;
   height: 50%;
   border-radius: 6px;
 
@@ -251,16 +253,11 @@ input[type="text"]:focus {
   border-radius: 10px;
 
   outline: 0em solid;
-  /*box-shadow:  0 0 0 rgba(0, 0, 0, 0);*/
+  box-shadow:  0 0 0 rgba(0, 0, 0, 0);
 
-  transition: outline 0.2s ease-in-out;
+  transition: box-shadow 0.08s ease-in-out;
 
   /*403d39 6c757def*/
-}
-.item:hover {
-  /*box-shadow: -1em 0px 0px 0px #343a40, 1em 0px 0px 0px #343a40;*/
-
-  outline: 0.25em solid gray;
 }
 .itemGray {
   background-color: #343a40;
@@ -272,6 +269,13 @@ input[type="text"]:focus {
   color: #343a40;
   /*outline-color: #f8f9fa;*/
   /*background-color: #f1faee;*/
+}
+
+.itemGray:hover {
+  box-shadow: -0.5em 0px 0px 0px #343a40, 0.25em 0px 0px 0px #343a40;
+}
+.itemWhite:hover{
+  box-shadow: -0.5em 0px 0px 0px  #f8f9fa, 0.25em 0px 0px 0px  #f8f9fa;
 }
 
 .itemTitle {
