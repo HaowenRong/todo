@@ -8,15 +8,18 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:center;
   overflow: hidden;
 
+  margin-left: 10vw;
+
   position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
   height: 2.5em;
-  border-radius: 10px;
+
+  width: 90%;
+  height: 5vh;
 
   background-color: #6c757def;
 }
@@ -29,12 +32,16 @@
   padding-left: 10px;
 
   height: 50%;
-  width: 20em;
+  width: 10em;
+  min-width: 2em;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   border: none;
 
   background-color: white;
+}
+input::placeholder {
+  font-size: 16px;
 }
 .submitButton {
   cursor: pointer;
@@ -55,43 +62,29 @@
 
   background-color: goldenrod;
 }
-.naviBar a.left {
+.naviBar a.btn {
   cursor: pointer;
+  white-space: nowrap;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 10px;
 
   padding-top: 5px;
   padding-bottom: 4px;
   padding-left: 10px;
   padding-right: 10px;
 
-  width: 10em;
   height: 50%;
   border-radius: 6px;
 
   background-color: white;
 }
+.naviBar a.left {
+  margin-left: 10px;
+}
 .naviBar a.right {
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
   margin-right: 10px;
-
-  padding-top: 5px;
-  padding-bottom: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-
-  width: 7em;
-  height: 50%;
-  border-radius: 6px;
-
-  background-color: white;
 }
 .naviBar a.seperator {
   display: flex;

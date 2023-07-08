@@ -1,0 +1,49 @@
+
+.sideBar {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+}
+
+.corner {
+  width: 10vw;
+  height: 5vh;
+
+  background-color: #6c757def;
+  z-index: 1;
+}
+.cornerSeperatorRight {
+  width: 1px;
+  height: 5vh;
+  margin-left: 10vw;
+  background-color: blue;
+  max-width: 1px;
+
+  z-index: 1;
+}
+.cornerSeperatorBottom {
+  width: 10vw;
+  height: 1px;
+  margin-top: 5vh;
+  background-color: white;
+  max-height: 1px;
+
+  z-index: 1;
+}
+
+.side {
+  width: 10vw;
+  height: 95vh;
+  margin-top: 5vh;
+
+  background-color: #6c757def;
+}
+
