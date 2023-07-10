@@ -3,7 +3,7 @@ import { titleElement,
          tickboxElement,
          optionsBar } from "./elements.js";
 
-import { createForm } from "./form.js";
+import { createForm } from "./forms.js";
 
 
 export class node {

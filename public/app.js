@@ -1,5 +1,6 @@
-import { createNodeBtn } from './form.js'
+import { createNodeBtn } from './forms.js'
 import { node } from './nodes.js';
+import { pageBtn } from "./pages.js";
 
 // test nodes
 //const contentContainer = document.getElementById("content");
@@ -7,6 +8,10 @@ import { node } from './nodes.js';
 //new node(contentContainer, "title", "", "", "", -1);
 
 new createNodeBtn();
+
+new pageBtn('Demo Nodes');
+new pageBtn('Dummy btn1');
+new pageBtn('Dummy btn2');
 
 const btn1 = document.getElementById('sideBtn1');
 btn1.addEventListener('click', () => {
