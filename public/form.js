@@ -1,4 +1,5 @@
 import { node } from './nodes.js';
+import { plusIcon } from './icons.js';
 
 export function createForm(title, desc, color) {
   const formContainer = document.createElement("div");
@@ -67,9 +68,7 @@ export class createNodeBtn {
       this.expand();
     });
 
-    this.icon = document.createElement("a");
-    this.icon.className   = "plus";
-    this.icon.textContent = "+";
+    this.icon = plusIcon();
 
     this.container.append(this.icon);
 
@@ -82,10 +81,9 @@ export class createNodeBtn {
     this.expanded = true;
     this.form = createForm("", "", "");
 
-    this.container.removeChild(this.icon);
-    this.container.classList.toggle("addCatFormContainerExpanded");
-
     setTimeout(() => {
+      this.container.removeChild(this.icon);
+      this.container.classList.toggle("addCatFormContainerExpanded");
       this.container.append(this.form.container);
       this.form.title.focus();
       this.form.closeBtn.addEventListener('click', () => {
@@ -106,6 +104,7 @@ export class createNodeBtn {
         this.reAppend();
       });
     }, 100);
+    
   }
 
   removeSelf() {

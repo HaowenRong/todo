@@ -1,0 +1,40 @@
+
+/* options bar */
+.optionsBar {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  position: absolute;
+
+  display: flex;
+
+  top: 0.09em;
+  right: 0;
+
+  overflow: hidden;
+  /*max-height: 0px;*/
+  /*transition: max-height 0.4s ease;*/
+}
+
+.optionsHover {
+  max-height: 200px;
+}
+
+.optionBtn {
+  cursor: pointer;
+
+  transform: scale(0.8);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 1.5em;
+  height: 1.5em;
+
+  padding: 5px;
+}
+
+.optionBtn:hover {
+  border-radius: 20px;
+  background-color: var(--accent-color);
+}

@@ -3,8 +3,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  margin-top: 0.45em;
-  margin-left: 0.65em;
+  margin-top: 0.80em;
+  margin-left: 0.80em;
 }
 
 .tickbox:disabled {
@@ -18,6 +18,8 @@
 .category {
   position: relative;
 
+  color: var(--primary-text-color);
+
   word-break: break-word;
 
   margin-left: auto;
@@ -28,11 +30,10 @@
   padding-left: 2em;
 
   width: 90%;
-  border: 1px solid;
-  border-color: gray;
+  max-width: 1000px;
   border-radius: 10px;
 
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease;
 
   z-index: -1;
@@ -41,7 +42,6 @@
   /*background-color: #a4c3b2;*/
 }
 .category:hover {
-  box-shadow: 0 0 10px gray;
 
   z-index: -1;
 
@@ -62,8 +62,7 @@ input[type="text"]:focus {
 
 .title {
   font-family:Arial, Helvetica, sans-serif;
-  font-size: 22px;
-  padding-left: 1em;
+  font-size: 18px;
 }
 
 
@@ -78,35 +77,38 @@ input[type="text"]:focus {
   margin-left: 0.5em;
   margin-right: 0.5em;
 
-  padding-bottom: 0.15em;
-  padding-left: 0.7em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 2em;
 
   border-radius: 10px;
 
   outline: 0em solid;
   box-shadow:  0 0 0 rgba(0, 0, 0, 0);
 
-  transition: box-shadow 0.08s ease-in-out;
+  transition: box-shadow 0.08s ease-in-out, max-height 1s ease-in-out;
 
   /*403d39 6c757def*/
 }
 .itemGray {
-  background-color: #343a40;
-  color: #f8f9fa;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   /*outline-color: #343a40;*/
 }
 .itemWhite {
-  background-color: #f8f9fa;
-  color: #343a40;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   /*outline-color: #f8f9fa;*/
   /*background-color: #f1faee;*/
 }
 
 .itemGray:hover {
-  box-shadow: -0.5em 0px 0px 0px #343a40, 0.25em 0px 0px 0px #343a40;
+  box-shadow: -0.5em 0px 0px 0px var(--secondary-color),
+              0.25em 0px 0px 0px var(--secondary-color);
 }
 .itemWhite:hover{
-  box-shadow: -0.5em 0px 0px 0px  #f8f9fa, 0.25em 0px 0px 0px  #f8f9fa;
+  box-shadow: -0.5em 0px 0px 0px var(--primary-color),
+              0.25em 0px 0px 0px var(--primary-color);
 }
 
 .itemTitle {

@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <head>
+	<link rel="stylesheet" href="./css/layout.css">
+	<link rel="stylesheet" href="./css/colors.css">
 	<link rel="stylesheet" href="./css/todo.css">
 	<link rel="stylesheet" href="./css/form.css">
 	<link rel="stylesheet" href="./css/naviBar.css">
 	<link rel="stylesheet" href="./css/nodes.css">
 	<link rel="stylesheet" href="./css/sideBar.css">
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+	<link rel="stylesheet" href="./css/icons.css">
 
 	<div class="sideBar corner"></div>
-	<div class="sideBar cornerSeperatorRight"></div>
-	<div class="sideBar cornerSeperatorBottom"></div>
-	<div class="sideBar side"></div>
-	<nav class="naviBar">
-		<a id="btn1" class="btn left">Append demo nodes</a>
-		<a id="btn2" class="btn left" onclick="">Dummy btn 1</a>
-		<a class="seperator"></a>
-		<a id="btn3" class="btn right" onclick="">Dummy btn 2</a>
-		<input class="searchBar" placeholder="Search...">
-		<div id="submit" class="submitButton" onclick="">
-	</nav>
-	<div id="content" class="contentContainer">
+	<div class="sideBar side">
+		<a id="sideBtn1" class="btn" onclick="">Demo Nodes</a>
+		<a id="sideBtn2" class="btn" onclick="">Dummy btn 1</a>
+		<a id="sideBtn3" class="btn" onclick="">Dummy btn 1 2 3 4 5 6 7 8 9 10 11</a>
 	</div>
+	<nav class="naviBar">
+		<!--input class="searchBar" placeholder="Search..."-->
+		<!--div id="submit" class="submitButton" onclick=""-->
+		<div>Current Page</div>
+	</nav>
+	<div id="content" class="contentContainer"></div>
 	<script type='module' src='./app.js'></script>
 </head>

@@ -1,0 +1,11 @@
+
+:root {
+  --primary-color: #ebeaea;
+  --primary-text-color: #373736;
+  --secondary-color:  #353434;
+  --accent-color: #ebebeb;
+  --outline-color: #cfcece;
+}
+
+[data-theme="dark"] {
+}

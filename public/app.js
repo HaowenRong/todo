@@ -8,7 +8,7 @@ import { node } from './nodes.js';
 
 new createNodeBtn();
 
-const btn1 = document.getElementById('btn1');
+const btn1 = document.getElementById('sideBtn1');
 btn1.addEventListener('click', () => {
   const contentContainer = document.getElementById('content');
   const a = new node(contentContainer, 'Shopping', '', '', false, -1);
