@@ -11,15 +11,15 @@ function createBtn(pageName) {
 export class pageBtn {
   #pageName;
   #parent;
-  #container;
+  container;
   constructor(pageName) {
     this.#pageName = pageName;
     this.#parent = document.getElementById('sideBar');
-    this.#container = createBtn(this.#pageName);
+    this.container = createBtn(this.#pageName);
 
-    this.#parent.append(this.#container);
+    this.#parent.append(this.container);
 
-    this.#container.addEventListener('click', () => {
+    this.container.addEventListener('click', () => {
       let currPageName = document.getElementById('currentPage');
       currPageName.textContent = this.#pageName;
     });

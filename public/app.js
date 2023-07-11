@@ -9,12 +9,12 @@ import { pageBtn } from "./pages.js";
 
 new createNodeBtn();
 
-new pageBtn('Demo Nodes');
+new pageBtn('View All');
+const btn1 = new pageBtn('Demo Nodes');
 new pageBtn('Dummy btn1');
 new pageBtn('Dummy btn2');
 
-const btn1 = document.getElementById('sideBtn1');
-btn1.addEventListener('click', () => {
+btn1.container.addEventListener('click', () => {
   const contentContainer = document.getElementById('content');
   const a = new node(contentContainer, 'Shopping', '', '', false, -1);
   new node(a.container, 'Apples', 'Green and organic', '', false, 0);

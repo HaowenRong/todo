@@ -48,7 +48,7 @@
   /*background-color: #a4c3b2;*/
 }
 .category a.catTitle {
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 24px;
   color: black;
 }
@@ -61,7 +61,7 @@ input[type="text"]:focus {
 
 
 .title {
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
 
