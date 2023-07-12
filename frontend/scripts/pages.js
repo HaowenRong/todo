@@ -23,6 +23,5 @@ export class pageBtn {
       let currPageName = document.getElementById('currentPage');
       currPageName.textContent = this.#pageName;
     });
-    
   }
 }

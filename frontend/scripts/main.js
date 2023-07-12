@@ -42,5 +42,3 @@ btn1.container.addEventListener('click', () => {
   new node(caaa.container, 'Cat', '', '', false, 3);
   new node(caa.container, 'Create functions', '', '', false, 2);
 });
-
-

@@ -24,15 +24,16 @@ async function readCollection(databaseName, collectionName) {
   }
 }
 
-async function readItem(databaseName, collectionName, itemId) {
+async function readDocument(databaseName, collectionName, documentId) {
   try {
     await client.connect();
     const database = client.db(databaseName);
     const collection = database.collection(collectionName);
 
-    const query = { _id: new ObjectId(itemId)};
+    const query = { _id: new ObjectId(documentId)};
     const document = await collection.findOne( query );
     console.log('Document:', document);
+    return document;
   } catch(error) {
     console.log('Error reading data:', error);
   } finally {
@@ -40,13 +41,13 @@ async function readItem(databaseName, collectionName, itemId) {
   }
 }
 
-async function writeToCollection(databaseName, collectionName, item) {
+async function writeToCollection(databaseName, collectionName, document) {
   try {
     await client.connect();
     const database = client.db(databaseName);
     const collection = database.collection(collectionName);
 
-    const result = await collection.insertOne(item);
+    const result = await collection.insertOne(document);
     console.log('Document inserted:', result.insertedId);
     return result.insertedId;
   } catch (error) {
@@ -56,14 +57,9 @@ async function writeToCollection(databaseName, collectionName, item) {
   }
 }
 
-async function readFromWrite(documentToWrite) {
-  const newItemId = await writeToCollection('testdb', 'testcoll', documentToWrite).catch(console.error);
-  await readItem('testdb', 'testcoll', newItemId);
+async function readFromWrite(document) {
+  const newDocumentId = await writeToCollection('testdb', 'testcoll', document).catch(console.error);
+  await readDocument('testdb', 'testcoll', newDocumentId);
 }
 
-// readFromWrite();
-
-module.exports = {
-  readFromWrite,
-  readItem
-}
+export { readDocument };
