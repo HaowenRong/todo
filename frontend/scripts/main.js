@@ -42,3 +42,12 @@ btn1.container.addEventListener('click', () => {
   new node(caaa.container, 'Cat', '', '', false, 3);
   new node(caa.container, 'Create functions', '', '', false, 2);
 });
+
+fetch('http://localhost:3000/api/posts')
+  .then(response => response.json())
+  .then(data => {
+    console.log('Retrieved posts:', data);
+  })
+  .catch(error => {
+    console.error('Error retrieving posts:', error);
+  });
