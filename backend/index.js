@@ -1,31 +1,34 @@
-
-// express
-const express = require('express');
-const mongoose = require('mongoose');
+const express  = require('express');
+const routes = require('./routes/postRoutes');
 
 const app = express();
 const port = 3000;
 
-const routes = require('./routes/postRoutes');
+const cors = require('cors');
 
-require('dotenv').config();
-const uri = process.env.MONGO_DB_URI;
 
-const connection = async () => {
-  try {
-    connect = await mongoose.connect(uri);
-    console.log(`Connected to MongoDB: ${connect.connection.host}`);
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-  }
-}
-connection();
+app.use((req, res, next) => {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST'); // Allow the specified HTTP methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow the specified headers
 
-app.use(express.static('public'));
+  // Continue to the next middleware or route handler
+  next();
+});
+
+app.use(cors({
+  origin: ['http://127.0.0.1:8080/frontend/', 'localhost:3000']
+}));
+
+app.use(express.json());
 app.use(routes);
 
+const mongo = require('./models/mongo-db');
+mongo.connectDB();
+
 app.get('/', (req, res) => {
-  res.sendFile(`${__dirname}/routes/postRoutes.js`);
+  res.send("Welcome to the API");
 });
 
 app.listen(port, () => {

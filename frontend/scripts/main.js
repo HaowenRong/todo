@@ -2,17 +2,24 @@ import { createNodeBtn } from './forms.js'
 import { node } from './nodes.js';
 import { pageBtn } from "./pages.js";
 
-// test nodes
-//const contentContainer = document.getElementById("content");
-//new node(contentContainer, "title", "desc", "", "", -1);
-//new node(contentContainer, "title", "", "", "", -1);
-
 new createNodeBtn();
 
+// dummy buttons
 new pageBtn('View All');
 const btn1 = new pageBtn('Demo Nodes');
 new pageBtn('Dummy btn1');
-new pageBtn('Dummy btn2');
+const btn2 = new pageBtn('Dummy btn2');
+
+btn2.container.addEventListener('click', () => {
+  //const contentContainer = document.getElementById('content');
+  extractData('64b1b1906739f14bd130472e');
+  extractData('64b1b20d26cc66366d7ff1bd');
+  /* not working. likely due to awaiting
+  console.log(a);
+  console.log(b);
+  console.log(c);*/
+  //const a = new node();
+});
 
 btn1.container.addEventListener('click', () => {
   const contentContainer = document.getElementById('content');
@@ -43,7 +50,34 @@ btn1.container.addEventListener('click', () => {
   new node(caa.container, 'Create functions', '', '', false, 2);
 });
 
-fetch('http://localhost:3000/api/posts')
+async function getDocById(id) {
+  try {
+    const response = await fetch('http://localhost:3000/docs/' + id);
+    if (!response.ok) {
+      console.log("Error loading doc");
+      return;
+    }
+    const doc = response.json();
+    return doc;
+  } catch (error) {
+    console.log('Error:', error);
+  }
+}
+
+async function extractData(id) {
+  const data = await getDocById(id);
+  console.log(data);
+  const contentContainer = document.getElementById('content');
+  new node(contentContainer, data.title, data.desc, '', false, -1);
+  
+  return {
+    title: data.title,
+    desc: data.desc,
+    color: data.color
+  }
+}
+
+fetch('http://localhost:3000/docs')
   .then(response => response.json())
   .then(data => {
     console.log('Retrieved posts:', data);

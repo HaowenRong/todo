@@ -1,16 +1,15 @@
-
+const mongoose = require('mongoose');
 require('dotenv').config();
-
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = process.env.MONGO_DB_URI;
 
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
+const connectDB = async () => {
+  try {
+    connection = await mongoose.connect(uri);
+    console.log(`Connected to MongoDB: ${connection.connection.host}`);
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
   }
-});
+}
 
 async function readCollection(databaseName, collectionName) {
   try {
@@ -62,4 +61,6 @@ async function readFromWrite(document) {
   await readDocument('testdb', 'testcoll', newDocumentId);
 }
 
-export { readDocument };
+module.exports = {
+  connectDB
+};
