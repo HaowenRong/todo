@@ -20,7 +20,6 @@
 
 .corner {
   height: var(--navi-bar-height);
-
   z-index: 1;
 }
 
