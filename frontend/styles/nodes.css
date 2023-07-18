@@ -1,10 +1,12 @@
 /* tickbox */
 .tickbox {
+  cursor: pointer;
   position: absolute;
   left: 0;
   top: 0;
-  margin-top: 0.80em;
+  margin-top: 0.95em;
   margin-left: 0.80em;
+  transform: scale(1.2);
 }
 
 .tickbox:disabled {

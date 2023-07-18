@@ -141,10 +141,11 @@ export class node {
       if (this.formOpened == 1) {	return;	}
 
       this.form = createForm(this.title.textContent, this.desc.textContent, "");
+      this.container.replaceChild(this.form.title, this.title);
       if (this.desc.textContent != "") {
-        this.desc.insertAdjacentElement('afterend', this.form.container);
+        this.container.replaceChild(this.form.desc, this.desc);
       } else {
-        this.title.insertAdjacentElement('afterend', this.form.container);
+        this.form.title.insertAdjacentElement('afterend', this.form.desc);
       }
       this.form.title.focus();
 
@@ -152,29 +153,71 @@ export class node {
         this.removeForm();
       });
 
+      this.container.addEventListener("keyup", (event) => {
+        // if input is not enter, return
+        if (event.key !== 'Enter') { return; }
+        if (event.key === 'Escape') { return; } // todo
+        this.editFormSubmission();
+      });
+
       this.form.submitBtn.addEventListener('click', () => {
-        const formTitleValue = (this.form.title.value).trim();
-        const formDescValue = (this.form.desc.value).trim();
-        if (formTitleValue === "") {
-          this.form.title.focus();
-          return;
-        }
-        this.removeForm();
-
-        this.title.textContent = formTitleValue;
-
-        if (formDescValue == "" && this.desc.textContent != "") {
-          this.removeDesc();
-          return;
-        }
-        if (formDescValue != "" && this.desc.textContent == "") {
-          this.appendDesc();
-        }
-        
-        this.desc.textContent = formDescValue;
-        this.optionsBar.container.classList.remove('optionsHover');
+        this.editFormSubmission();
       });
     });
+  }
+
+  editFormSubmission() {
+    const formTitleValue = (this.form.title.value).trim();
+    const formDescValue = (this.form.desc.value).trim();
+    console.log('form title value - ' + formTitleValue);
+    if (formTitleValue === "") {
+      this.form.title.focus();
+      return;
+    }
+
+    this.title.textContent = formTitleValue;
+
+    try {
+      this.container.replaceChild(this.title, this.form.title);
+    } catch (error) {
+
+    }
+    
+    console.log('form desc value - ' + formDescValue);
+    console.log(this.desc.textContent);
+
+    // removing desc
+    if (formDescValue == "" && this.desc.textContent != "") {
+      console.log(1);
+      this.desc.textContent = "";
+      this.container.removeChild(this.descSeperator);
+      this.container.removeChild(this.form.desc);
+      return;
+    }
+    // adding desc
+    if (formDescValue != "" && this.desc.textContent == "") {
+      console.log(2)
+      this.title.insertAdjacentElement("afterend", this.descSeperator);
+      try {
+        this.container.replaceChild(this.desc, this.form.desc);
+      } catch (error) {
+      
+      }
+      
+    }
+    
+    console.log(3);
+
+    // if not adding or removing desc
+    this.desc.textContent = formDescValue;
+    try {
+      this.container.replaceChild(this.desc, this.form.desc);
+    } catch (error) {
+      
+    }    
+    this.optionsBar.container.classList.remove('optionsHover');
+
+    
   }
 
   initDeleteDection() {
