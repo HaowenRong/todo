@@ -8,14 +8,23 @@ const nodeSchema = new mongoose.Schema({
   },
   desc: {
     type: String,
-    required: true,
+    required: false,
   },
   color: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
-const Doc = mongoose.model('tests', nodeSchema);
+const userSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
+  nodes: [nodeSchema]
+});
+const UserDoc = mongoose.model('tests', userSchema);
 
-module.exports = Doc;
+module.exports = {
+  UserDoc
+};
