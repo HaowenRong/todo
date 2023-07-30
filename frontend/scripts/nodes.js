@@ -5,7 +5,6 @@ import { titleElement,
 
 import { createForm } from "./forms.js";
 
-
 export class node {
   #parent
   #container
@@ -114,7 +113,7 @@ export class node {
         return;
       } else { this.formOpened = 1; }
       
-      this.form = createForm("", "", "");
+      this.form = createForm("", "", "", "catInput");
       this.container.append(this.form.container);
       this.form.title.focus();
 
@@ -140,7 +139,7 @@ export class node {
     this.optionsBar.editBtn.addEventListener('click', (event) => {
       if (this.formOpened == 1) {	return;	}
 
-      this.form = createForm(this.title.textContent, this.desc.textContent, "");
+      this.form = createForm(this.title.textContent, this.desc.textContent, "", "inputEdit");
       this.container.replaceChild(this.form.title, this.title);
       if (this.desc.textContent != "") {
         this.container.replaceChild(this.form.desc, this.desc);

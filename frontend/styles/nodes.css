@@ -38,14 +38,12 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease;
 
-  z-index: -1;
-
   /*background-color: #dad7cd;*/
   /*background-color: #a4c3b2;*/
 }
 .category:hover {
 
-  z-index: -1;
+  z-index: 0;
 
   /*background-color: #a4c3b2;*/
 }
@@ -91,6 +89,9 @@ input[type="text"]:focus {
   transition: box-shadow 0.08s ease-in-out, max-height 1s ease-in-out;
 
   /*403d39 6c757def*/
+}
+.item:hover {
+  z-index: 0;
 }
 .itemGray {
   background-color: var(--secondary-color);

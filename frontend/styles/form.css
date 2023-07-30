@@ -8,17 +8,40 @@
 
   padding-top: 5px;
 
-  color: black;
+  color: var(--primary-text-color);
 }
 .addCatFormContainer a.closeBtn {  
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 24px;
   text-align: center;
 
-  color: black;
+  color: var(--primary-text-color);
 }
 .catInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  font-size: 16px;
+
+  border: none;
+  border-radius: 5px;
+
+  padding-left: 1em;
+
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+
+  background-color: var(--primary-color);
+}
+.catInput:nth-child(1),
+.catInput:nth-child(2),
+.catInput:nth-child(3) {
+  grid-column: span 2;
+}
+
+.inputEdit {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,9 +58,26 @@
 
   background-color: #00000000;
 }
-.catInput:nth-child(1),
-.catInput:nth-child(2),
-.catInput:nth-child(3) {
+
+.newCatInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+
+  border: none;
+  border-radius: 5px;
+
+  padding-left: 1em;
+
+  background-color: white;
+}
+
+.newCatInput:nth-child(1),
+.newCatInput:nth-child(2),
+.newCatInput:nth-child(3) {
   grid-column: span 2;
 }
 
@@ -56,7 +96,7 @@
   border-radius: 6px;
   border: none;
 
-  background-color: #ebeaea;
+  background-color: white;
 }
 
 /* new item form */
@@ -66,14 +106,12 @@
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: auto;
-  gap: 0.2em;
+  gap: 0.3em;
 
-  margin: 0.2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 
   border-radius: 10px;
-
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
 }
 .newIteminput {
 
@@ -136,9 +174,6 @@
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
-
-  padding-left: 20px;
-  padding-right: 20px;
   
   border-radius: 5px;
 
@@ -163,12 +198,11 @@
   cursor: auto;
 
   display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: auto;
+  align-items: center;
   gap: 0.2em;
 
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-left:  1rem;
+  padding-right: 1rem;
 
   border-radius: 10px;
 
@@ -178,7 +212,7 @@
 
   box-shadow: 0 0 10px gray;
 
-  background-color: #feffff;
+  /*background-color: #feffff;*/
 
   z-index: -1;
 }
