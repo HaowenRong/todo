@@ -1,24 +1,31 @@
 import { createNodeBtn } from './forms.js'
 import { node } from './nodes.js';
 import { pageBtn } from "./pages.js";
+import { getAll, createUser } from "./backend/api.js";
+import { accountBtnListener } from './accounts.js';
 
 new createNodeBtn();
 
+accountBtnListener();
+
+
 // dummy buttons
-new pageBtn('View All');
+const btn  = new pageBtn('View All');
 const btn1 = new pageBtn('Demo Nodes');
 new pageBtn('Dummy btn1');
 const btn2 = new pageBtn('Dummy btn2');
 
+btn.container.addEventListener('click', async () => {
+  const data = await getAll();
+  const contentContainer = document.getElementById('content');
+  data.forEach((doc) => {
+    new node(contentContainer, doc.title, doc.desc, '', false, -1);
+  });
+});
+
 btn2.container.addEventListener('click', () => {
-  //const contentContainer = document.getElementById('content');
-  extractData('64b1b1906739f14bd130472e');
-  extractData('64b1b20d26cc66366d7ff1bd');
-  /* not working. likely due to awaiting
-  console.log(a);
-  console.log(b);
-  console.log(c);*/
-  //const a = new node();
+  const doc = { _id: '895346758236253489767589', nodes: []};
+  createUser(doc);
 });
 
 btn1.container.addEventListener('click', () => {
@@ -76,12 +83,3 @@ async function extractData(id) {
     color: data.color
   }
 }
-
-fetch('http://localhost:3000/docs')
-  .then(response => response.json())
-  .then(data => {
-    console.log('Retrieved posts:', data);
-  })
-  .catch(error => {
-    console.error('Error retrieving posts:', error);
-  });
