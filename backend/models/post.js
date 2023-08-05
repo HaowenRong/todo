@@ -8,7 +8,7 @@ const nodeSchema = new mongoose.Schema({
   },
   desc: {
     type: String,
-    required: true,
+    required: false,
   },
   color: {
     type: String,
@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
   },
   pages: [page]
 });
+const UserDoc = mongoose.model('tests', userSchema);
 
-const Doc = mongoose.model('tests', nodeSchema);
-
-module.exports = Doc;
+module.exports = {
+  UserDoc
+};

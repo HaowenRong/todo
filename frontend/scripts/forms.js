@@ -1,7 +1,7 @@
 import { node } from './nodes.js';
 import { plusIcon } from './icons.js';
 
-export function createForm(title, desc, color) {
+export function createForm(title, desc, color, inputType="newCatInput") {
   const formContainer = document.createElement("div");
   formContainer.className = "newItemContainer";
 
@@ -9,19 +9,19 @@ export function createForm(title, desc, color) {
   formTitle.type = "text";
   formTitle.placeholder = "Enter the name of the item";
   formTitle.value = title;
-  formTitle.className = "catInput";
+  formTitle.className = inputType;
 
   const formDesc = document.createElement("input");
   formDesc.type = "text";
   formDesc.placeholder = "Enter a description for the item. (Optional)";
   formDesc.value = desc;
-  formDesc.className = "catInput";
+  formDesc.className = inputType;
 
   const formColor = document.createElement("input");
   formColor.type = "text";
   formColor.placeholder = "(WIP) Enter the color of the item. (Optional)";
   formColor.value = color;
-  formColor.className = "catInput";
+  formColor.className = inputType;
 
   const formCloseBtn = document.createElement("input");
   formCloseBtn.type = "button";

@@ -1,5 +1,9 @@
 
 :root {
-  --side-bar-width: 250px;
-  --navi-bar-height: 40px;
+  --side-bar-top: var(--navi-bar-width);
+  --side-bar-width: 15rem;
+  --side-bar-height: calc(100% - var(--navi-bar-height));
+
+  --navi-bar-width: calc(100% - var(--side-bar-width));
+  --navi-bar-height: 2.5rem;
 }

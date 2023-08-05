@@ -6,6 +6,9 @@ import { accountBtnListener, getAccount } from './accounts.js';
 
 new createNodeBtn();
 
+accountBtnListener();
+
+
 // dummy buttons
 const btn  = new pageBtn('View All');
 //const btn1 = new pageBtn('Demo Nodes');
@@ -119,12 +122,3 @@ async function extractData(id) {
     color: data.color
   }
 }
-
-fetch('http://localhost:3000/docs')
-  .then(response => response.json())
-  .then(data => {
-    console.log('Retrieved posts:', data);
-  })
-  .catch(error => {
-    console.error('Error retrieving posts:', error);
-  });

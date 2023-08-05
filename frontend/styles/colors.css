@@ -2,9 +2,17 @@
 :root {
   --primary-color: #ebeaea;
   --primary-text-color: #373736;
+  --primary-shade-color: #dbdbdb;
+
   --secondary-color:  #353434;
+  --secondary-text-color:  #353434;
+  --secondary-shade-color: #353434;
+  
   --accent-color: #ebebeb;
+
   --outline-color: #cfcece;
+
+
 }
 
 [data-theme="dark"] {

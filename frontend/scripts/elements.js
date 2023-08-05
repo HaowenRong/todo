@@ -21,7 +21,6 @@ export function tickboxElement(ticked) {
   tickbox.type = 'checkbox';
   tickbox.className = 'tickbox';
   tickbox.checked = ticked;
-  tickbox.disabled = true;
 
   return tickbox;
 }

@@ -8,12 +8,13 @@
 
   display: flex;
 
-  top: 0.09em;
+  top: 0.1em;
   right: 0;
 
   overflow: hidden;
   /*max-height: 0px;*/
   /*transition: max-height 0.4s ease;*/
+  z-index: -1;
 }
 
 .optionsHover {

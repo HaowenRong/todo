@@ -1,9 +1,9 @@
 
-const Doc = require('../models/post');
+const { UserDoc } = require('../models/post');
 
 const getDocs = async (req, res) => {
   try {
-    const docs = await Doc.find({});
+    const docs = await UserDoc.find({});
     res.json(docs);
   } catch(error) {
     res.status(500).json({ error: 'Error retreiving documents1'});
@@ -12,7 +12,7 @@ const getDocs = async (req, res) => {
 
 const getDocById = async (req, res) => {
   try {
-    const doc = await Doc.findById(req.params.id);
+    const doc = await UserDoc.findById(req.params.id);
     res.json(doc);
   } catch(error) {
     res.status(500).json({ error: 'Error retreiving documents2'});
@@ -21,7 +21,7 @@ const getDocById = async (req, res) => {
 
 const getDocsByTitle = async (req, res) => {
   try {
-    const docs = await Doc.find({title: req.params.title});
+    const docs = await UserDoc.find({title: req.params.title});
     res.json(docs);
   } catch(error) {
     res.status(500).json({ error: 'Error retreiving documents3'});
@@ -30,7 +30,7 @@ const getDocsByTitle = async (req, res) => {
 
 const getDocByDesc = async (req, res) => {
   try {
-    const docs = await Doc.find({desc: req.params.desc});
+    const docs = await UserSchema.find({desc: req.params.desc});
     res.json(docs);
   } catch(error) {
     res.status(500).json({ error: 'Error retreiving documents4'});
