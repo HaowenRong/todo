@@ -27,7 +27,8 @@
     "express": "^4.18.2",
     "http-server": "^14.1.1",
     "mongodb": "^5.7.0",
-    "mongoose": "^7.3.3"
+    "mongoose": "^7.3.3",
+    "random-words": "^2.0.0"
   },
   "devDependencies": {
     "degit": "^2.8.4"

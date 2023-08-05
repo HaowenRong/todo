@@ -38,13 +38,12 @@ const getDocByDesc = async (req, res) => {
 };
 
 const createDoc = async (req, res) => {
-  const {title, desc, color} = req.body;
+  const {_id, pages} = req.body;
   console.log(1);
   try {
-    const newDoc = new Doc({
-      title,
-      desc,
-      color
+    const newDoc = new UserDoc({
+      _id,
+      pages,
     });
     console.log(2);
 
