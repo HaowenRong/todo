@@ -99,7 +99,7 @@ export class createNodeBtn {
           return;
         }
         const contentContainer = document.getElementById("content");
-        new node(contentContainer, formTitleValue, formDescValue, "", "", -1).container;
+        new node(contentContainer, formTitleValue, formDescValue, "", "", 0).container;
 
         this.reAppend();
       });
