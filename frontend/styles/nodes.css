@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  margin-top: 0.95em;
+  margin-top: 0.80em;
   margin-left: 0.80em;
   transform: scale(1.2);
 }
@@ -32,6 +32,7 @@
   padding-left: 2em;
 
   width: 90%;
+  min-height: 22px;
   max-width: 1000px;
   border-radius: 10px;
 
