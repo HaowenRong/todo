@@ -1,7 +1,6 @@
+import { UserDoc } from '../models/post.mjs';
 
-const { UserDoc } = require('../models/post');
-
-const getDocs = async (req, res) => {
+export const getDocs = async (req, res) => {
   try {
     const docs = await UserDoc.find({});
     res.json(docs);
@@ -10,7 +9,7 @@ const getDocs = async (req, res) => {
   }
 };
 
-const getDocById = async (req, res) => {
+export const getDocById = async (req, res) => {
   try {
     const doc = await UserDoc.findById(req.params.id);
     res.json(doc);
@@ -19,7 +18,7 @@ const getDocById = async (req, res) => {
   }
 };
 
-const getDocsByTitle = async (req, res) => {
+export const getDocsByTitle = async (req, res) => {
   try {
     const docs = await UserDoc.find({title: req.params.title});
     res.json(docs);
@@ -28,7 +27,7 @@ const getDocsByTitle = async (req, res) => {
   }
 };
 
-const getDocByDesc = async (req, res) => {
+export const getDocByDesc = async (req, res) => {
   try {
     const docs = await UserSchema.find({desc: req.params.desc});
     res.json(docs);
@@ -37,7 +36,7 @@ const getDocByDesc = async (req, res) => {
   }
 };
 
-const createDoc = async (req, res) => {
+export const createDoc = async (req, res) => {
   const {_id, pages} = req.body;
   console.log(1);
   try {
@@ -53,12 +52,4 @@ const createDoc = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error creating doc'});
   }
-}
-
-module.exports = {
-  getDocs,
-  getDocById,
-  getDocsByTitle,
-  getDocByDesc,
-  createDoc
 }

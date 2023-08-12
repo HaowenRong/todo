@@ -1,7 +1,8 @@
 
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const controller = require('../controllers/postController');
+export default router;
+import * as controller from '../controllers/postController.mjs';
 
 // read
 router.get('/docs', controller.getDocs);
@@ -18,5 +19,3 @@ router.get('/docs/search/:id', controller.getDocById);
 router.post('/docs/create', controller.createDoc);
 
 router.post('/docs/create/user', controller.createDoc);
-
-module.exports = router;

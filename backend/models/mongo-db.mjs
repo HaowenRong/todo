@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
-const uri = process.env.MONGO_DB_URI;
+import 'dotenv/config.js';
+import mongoose from 'mongoose';
 
-const connectDB = async () => {
+export const connectDB = async () => {
+  const uri = process.env.MONGO_DB_URI;
+  console.log(uri);
   try {
-    connection = await mongoose.connect(uri);
+    const connection = await mongoose.connect(uri);
     console.log(`Connected to MongoDB: ${connection.connection.host}`);
   } catch (error) {
     console.error('Error connecting to MongoDB:', error);
@@ -60,7 +61,3 @@ async function readFromWrite(document) {
   const newDocumentId = await writeToCollection('testdb', 'testcoll', document).catch(console.error);
   await readDocument('testdb', 'testcoll', newDocumentId);
 }
-
-module.exports = {
-  connectDB
-};
