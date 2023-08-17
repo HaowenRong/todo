@@ -1,11 +1,9 @@
-import { titleElement,
-         descElement,
-         tickboxElement,
-         optionsBar } from "./elements.js";
+import { titleElement,   descElement,
+         tickboxElement, optionsBar } from "./elements.js";
 
 import { createForm } from "./forms.js";
 
-export class node {
+export class Node {
   #parent
   #container
   #title;
@@ -128,7 +126,7 @@ export class node {
           this.form.title.focus();
           return;
         }
-        new node(this.container, formTitleValue, formDescValue, "", "", (this.layer + 1)).container;
+        new Node(this.container, formTitleValue, formDescValue, "", "", (this.layer + 1)).container;
         this.removeForm();
         this.optionsBar.container.classList.remove('optionsHover');
       });

@@ -1,4 +1,5 @@
-import { node } from './nodes.js';
+import { Node } from './nodes.js';
+import { createNodeBtn } from './forms.js'
 import { getAccount } from './accounts.js';
 import { searchUser, fetchPage } from './backend/api.js';
 
@@ -22,14 +23,16 @@ export class pageBtn {
     this.#parent.append(this.container);
 
     this.container.addEventListener('click', () => {
+      let currPageName = document.getElementById('currentPage');
+      currPageName.textContent = this.#pageName;
+
+      // todo check if page is already open
 
       if (pageName == 'View All') {
         viewAll(getAccount());
         return;
       }
 
-      let currPageName = document.getElementById('currentPage');
-      currPageName.textContent = this.#pageName;
       loadPage(getAccount(), this.#pageName);
     });
   }
@@ -40,6 +43,7 @@ async function loadPage(userId, pageName) {
   const nodes = page.page.nodes;
   clearPage();
   displayNodes(nodes);
+  new createNodeBtn();
 }
 
 export async function loadUserPages(userId) {
@@ -56,12 +60,12 @@ export async function loadUserPages(userId) {
   });
 }
 
-export function displayNodes(nodes) {
-  nodes.forEach(element => {
-    console.log(element);
-    const container = document.getElementById('content');
-    console.log(container)
-    new node(container, element.title, element.desc, "", "", 0);
+export function displayNodes(nodes, container=document.getElementById('content')) {
+  nodes.forEach(node => {
+    console.log(node);
+    console.log(container);
+    new Node(container, node.title, node.desc, "", "", 0);
+    // todo recursively call function to display any nodse within a node
   });
 }
 
@@ -70,11 +74,21 @@ export async function viewAll(userId) {
   const userPages = userData.pages;
 
   clearPage();
+  console.log(userData);
+  console.log(userData.pages);
 
-  userPages.forEach(element => {
-    displayNodes(element.nodes);
-    console.log('iterated ---------------------------------------')
+  userPages.forEach(page => {
+    console.log(5789234576892367823);
+    console.log(page.title);
+    const contentContainer = document.getElementById('content');
+    const currentPage = new Node(contentContainer, `${page.title}`, '', '', false, -1);
+    displayNodes(page.nodes, currentPage.container);
   });
+
+  console.log(userData.pages[0]);
+  console.log(userData.pages[0].nodes);
+  console.log(userData.pages[0].nodes[0]);
+  console.log(userData.pages[0].nodes[1]);
 }
 
 function clearPage() {
