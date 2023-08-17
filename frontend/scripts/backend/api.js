@@ -18,7 +18,7 @@ export async function searchUser(userId) {
 
 export async function fetchPage(userId, pageId) {
   try {
-    const response = await fetch(`http://localhost:3000/docs/${userId}/${pageId}`);
+    const response = await fetch(`http://localhost:3000/docs/${userId}/pages/${pageId}`);
     return response.json();
   } catch (error) {
     console.error('Error retrieving posts:', error);

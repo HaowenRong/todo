@@ -1,5 +1,6 @@
 import { node } from './nodes.js';
-import { searchUser } from './backend/api.js';
+import { getAccount } from './accounts.js';
+import { searchUser, fetchPage } from './backend/api.js';
 
 function createBtn(pageName) {
   const btn = document.createElement('div');
@@ -21,16 +22,32 @@ export class pageBtn {
     this.#parent.append(this.container);
 
     this.container.addEventListener('click', () => {
+
+      if (pageName == 'View All') {
+        viewAll(getAccount());
+        return;
+      }
+
       let currPageName = document.getElementById('currentPage');
       currPageName.textContent = this.#pageName;
+      loadPage(getAccount(), this.#pageName);
     });
   }
+}
+
+async function loadPage(userId, pageName) {
+  const page  = await fetchPage(userId, pageName);
+  const nodes = page.page.nodes;
+  clearPage();
+  displayNodes(nodes);
 }
 
 export async function loadUserPages(userId) {
   // todo code to remove previous buttons
   const userData  = await searchUser(userId);
   const userPages = userData.pages;
+
+  new pageBtn('View All');
 
   // loop through users pages and create buttons
   userPages.forEach(element => {
@@ -39,7 +56,7 @@ export async function loadUserPages(userId) {
   });
 }
 
-function displayNodes(nodes) {
+export function displayNodes(nodes) {
   nodes.forEach(element => {
     console.log(element);
     const container = document.getElementById('content');
@@ -52,8 +69,15 @@ export async function viewAll(userId) {
   const userData  = await searchUser(userId);
   const userPages = userData.pages;
 
+  clearPage();
+
   userPages.forEach(element => {
     displayNodes(element.nodes);
     console.log('iterated ---------------------------------------')
   });
+}
+
+function clearPage() {
+  let content = document.getElementById('content');
+  content.innerHTML = ''; // remove all html inside element
 }

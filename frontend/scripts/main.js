@@ -1,71 +1,10 @@
 import { createNodeBtn } from './forms.js'
 import { node } from './nodes.js';
-import { pageBtn, viewAll, loadUserPages } from "./pages.js";
-import { getAll, createUser } from "./backend/api.js";
 import { accountBtnListener, getAccount } from './accounts.js';
 
 new createNodeBtn();
 
 accountBtnListener();
-
-
-// dummy buttons
-const btn  = new pageBtn('View All');
-//const btn1 = new pageBtn('Demo Nodes');
-// new pageBtn('Dummy btn1');
-//const btn2 = new pageBtn('Dummy btn2');
-
-btn.container.addEventListener('click', async () => {
-  console.log(1111);
-  viewAll('a')
-  /*
-  const data = await loadUserPages(getAccount());
-  console.log(11111);
-  console.log(data);
-  const contentContainer = document.getElementById('content');
-  data.forEach((doc) => {
-    new node(contentContainer, doc.title, doc.desc, '', false, -1);
-  });*/
-});
-
-btn2.container.addEventListener('click', () => {
-  const doc = {
-    _id: 'bob',
-    pages: [
-      {
-        title: 'page1',
-        nodes: [
-          {
-            title: 'Bread',
-            desc:  'I love loafs',
-            nodes: []
-          },
-          {
-            title: 'piza piza piza',
-            desc:  'pizzzzzaaaaaaaa',
-            nodes: []
-          }
-        ]
-      },
-      {
-        title: 'page1',
-        nodes: [
-          {
-            title: 'Tomatoes',
-            desc:  'redy',
-            nodes: []
-          },
-          {
-            title: 'Eggs',
-            desc:  'eg',
-            nodes: []
-          }
-        ]
-      }
-    ]
-  };
-  createUser(doc);
-});
 
 btn1.container.addEventListener('click', () => {
   const contentContainer = document.getElementById('content');
