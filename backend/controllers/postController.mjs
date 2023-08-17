@@ -18,6 +18,25 @@ export const getDocById = async (req, res) => {
   }
 };
 
+export const getPageById = async (req, res) => {
+  const { id, name } = req.params;
+  console.log(req.params);
+  console.log(id);
+  console.log(name);
+
+  try {
+    const doc = await UserDoc.findOne(
+      { _id: id, 'pages.title': name },
+      { 'pages.$': 1 } // retrieve first matched page only
+    ).populate('pages.nodes');
+    const page = doc.pages[0];
+    res.json({ page });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error retrieving documents' });
+  }
+};
+
 export const getDocsByTitle = async (req, res) => {
   try {
     const docs = await UserDoc.find({title: req.params.title});
