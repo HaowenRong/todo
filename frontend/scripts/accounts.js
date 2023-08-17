@@ -26,7 +26,7 @@ export function getAccount() {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-export async function laodUserFromCookies() {
+export async function loadUserFromCookies() {
   const account = document.getElementById('accountBtn');
   const accountName = getAccount();
   if (accountName == undefined) {
@@ -88,8 +88,9 @@ function loginDetection() {
       const a = await searchUser(accName.value)
       console.log(a.pages);
       storeAccount(accName.value, currentlySelected[0].value);
-      laodUserFromCookies();
-      // check for same account
+      loadUserFromCookies();
+      // todo check for same account
+      submitForm();
     }
   });
 }
@@ -97,12 +98,17 @@ function loginDetection() {
 function logoutDectection() {
   const logoutBtn = document.getElementById('logOut');
   logoutBtn.addEventListener('click', () => {
-    console.log(2);
+    // return if not signed in
+    if (getAccount() == undefined) { return; }
+
+    // change date of cookie to have browser delete it
     const unixEpoch = new Date(0);
     document.cookie = `account=; expires=${unixEpoch.toUTCString()}; path=/;`;
-    laodUserFromCookies();
+    
+    loadUserFromCookies();
     closeForm();
-  })
+    submitForm();
+  });
 }
 
 function closeForm() {
@@ -115,7 +121,12 @@ function closeForm() {
   accName.value = '';
 }
 
-laodUserFromCookies();
+function submitForm() {
+  const form = document.getElementById('accountBar');
+  form.submit();
+}
+
+loadUserFromCookies();
 expiryDaysDetection();
 loginDetection();
 logoutDectection();
