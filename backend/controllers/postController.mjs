@@ -72,3 +72,13 @@ export const createDoc = async (req, res) => {
     res.status(500).json({ error: 'Error creating doc'});
   }
 }
+
+export const saveNewNode = async (req, res) => {
+
+}
+
+export const updateNode = async (req, res) => {
+
+}
+
+// todo seperate controllers into different files

@@ -286,4 +286,9 @@ export class Node {
       document.body.style.overflow = "auto";
     });
   }
+
+  saveNode() {
+    
+  }
+
 }
