@@ -1,7 +1,6 @@
+import { UserDoc } from '../models/post.mjs';
 
-const { UserDoc } = require('../models/post');
-
-const getDocs = async (req, res) => {
+export const getDocs = async (req, res) => {
   try {
     const docs = await UserDoc.find({});
     res.json(docs);
@@ -10,7 +9,7 @@ const getDocs = async (req, res) => {
   }
 };
 
-const getDocById = async (req, res) => {
+export const getDocById = async (req, res) => {
   try {
     const doc = await UserDoc.findById(req.params.id);
     res.json(doc);
@@ -19,7 +18,26 @@ const getDocById = async (req, res) => {
   }
 };
 
-const getDocsByTitle = async (req, res) => {
+export const getPageById = async (req, res) => {
+  const { id, name } = req.params;
+  console.log(req.params);
+  console.log(id);
+  console.log(name);
+
+  try {
+    const doc = await UserDoc.findOne(
+      { _id: id, 'pages.title': name },
+      { 'pages.$': 1 } // retrieve first matched page only
+    ).populate('pages.nodes');
+    const page = doc.pages[0];
+    res.json({ page });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error retrieving documents' });
+  }
+};
+
+export const getDocsByTitle = async (req, res) => {
   try {
     const docs = await UserDoc.find({title: req.params.title});
     res.json(docs);
@@ -28,7 +46,7 @@ const getDocsByTitle = async (req, res) => {
   }
 };
 
-const getDocByDesc = async (req, res) => {
+export const getDocByDesc = async (req, res) => {
   try {
     const docs = await UserSchema.find({desc: req.params.desc});
     res.json(docs);
@@ -37,13 +55,13 @@ const getDocByDesc = async (req, res) => {
   }
 };
 
-const createDoc = async (req, res) => {
-  const {_id, nodes} = req.body;
+export const createDoc = async (req, res) => {
+  const {_id, pages} = req.body;
   console.log(1);
   try {
     const newDoc = new UserDoc({
       _id,
-      nodes,
+      pages,
     });
     console.log(2);
 
@@ -55,10 +73,12 @@ const createDoc = async (req, res) => {
   }
 }
 
-module.exports = {
-  getDocs,
-  getDocById,
-  getDocsByTitle,
-  getDocByDesc,
-  createDoc
+export const saveNewNode = async (req, res) => {
+
 }
+
+export const updateNode = async (req, res) => {
+
+}
+
+// todo seperate controllers into different files

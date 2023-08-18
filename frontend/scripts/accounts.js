@@ -1,4 +1,5 @@
 import { searchUser } from "./backend/api.js";
+import { loadUserPages } from "./pages.js";
 
 export function accountBtnListener() {
   const accountBtn = document.getElementById('accountBtn');
@@ -25,7 +26,7 @@ export function getAccount() {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-export function laodUserFromCookies() {
+export async function loadUserFromCookies() {
   const account = document.getElementById('accountBtn');
   const accountName = getAccount();
   if (accountName == undefined) {
@@ -33,6 +34,7 @@ export function laodUserFromCookies() {
     return;
   }
   account.textContent = accountName;
+  await loadUserPages(account.textContent);
 }
 
 function expiryDaysDetection() {
@@ -42,11 +44,19 @@ function expiryDaysDetection() {
   const btn4 = document.getElementById('days30');
 
   function highlightBtn(event) {
+    // check if selected button has already been selected
+    const previouslySelected = event.target.classList.contains('expiryBtn__selected');
+
+    // remove highlight from all buttons
     btn1.classList.remove('expiryBtn__selected');
     btn2.classList.remove('expiryBtn__selected');
     btn3.classList.remove('expiryBtn__selected');
     btn4.classList.remove('expiryBtn__selected');
 
+    // if selected button is already highlighted, return and leave all buttons unselected
+    if (previouslySelected == true) { return; }
+
+    // give selected button the selected class
     event.target.classList.toggle('expiryBtn__selected');
   } 
 
@@ -70,23 +80,35 @@ function loginDetection() {
     // check name against db
     // create error messages
 
-    if (await searchUser(accName.value) != null) {
-      storeAccount(accName.value,currentlySelected[0].value);
-      laodUserFromCookies();
-    }
+    if (accName.value.length == 0) { return; }
+    // display error if empty
 
+    // load user if name is found in db
+    if (await searchUser(accName.value) != null) {
+      const a = await searchUser(accName.value)
+      console.log(a.pages);
+      storeAccount(accName.value, currentlySelected[0].value);
+      loadUserFromCookies();
+      // todo check for same account
+      submitForm();
+    }
   });
 }
 
 function logoutDectection() {
   const logoutBtn = document.getElementById('logOut');
   logoutBtn.addEventListener('click', () => {
-    console.log(2);
+    // return if not signed in
+    if (getAccount() == undefined) { return; }
+
+    // change date of cookie to have browser delete it
     const unixEpoch = new Date(0);
     document.cookie = `account=; expires=${unixEpoch.toUTCString()}; path=/;`;
-    laodUserFromCookies();
+    
+    loadUserFromCookies();
     closeForm();
-  })
+    submitForm();
+  });
 }
 
 function closeForm() {
@@ -99,7 +121,12 @@ function closeForm() {
   accName.value = '';
 }
 
-laodUserFromCookies();
+function submitForm() {
+  const form = document.getElementById('accountBar');
+  form.submit();
+}
+
+loadUserFromCookies();
 expiryDaysDetection();
 loginDetection();
 logoutDectection();

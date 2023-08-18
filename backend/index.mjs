@@ -1,10 +1,10 @@
-const express  = require('express');
-const routes = require('./routes/postRoutes');
+import express from 'express';
+import routes from './routes/postRoutes.mjs';
 
 const app = express();
 const port = 3000;
 
-const cors = require('cors');
+import cors from 'cors';
 
 
 app.use((req, res, next) => {
@@ -24,8 +24,8 @@ app.use(cors({
 app.use(express.json());
 app.use(routes);
 
-const mongo = require('./models/mongo-db');
-mongo.connectDB();
+import { connectDB } from './models/mongo-db.mjs';
+connectDB();
 
 app.get('/', (req, res) => {
   res.send("Welcome to the API");

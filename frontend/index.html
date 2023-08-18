@@ -16,29 +16,27 @@
 <body>
 	<div class="sideBar corner">
 		<button type="button" id="accountBtn" class="accountBtn"></button>
-		<div id="accountBar" class="accountBar__closed">
+		<form id="accountBar" class="accountBar__closed">
 			<h3 class="accountBarTitle">Log into</h3>
-			<input id='accountNameInput' type="text" class="accountField" placeholder="Account name">
-			<a id='createNew' class="accountSubHeading">Create new account</a>
+			<input id='accountNameInput' type='password' class="accountField" placeholder="Account name" autocomplete="current-password">
 
 			<h3 class="accountBarTitle">Stay signed in for</h3>
 			<div class="expirySelection" placeholder="Account name">
-				<button id='days1'  class="expiryBtn" value='1'>1<br>Days</button>
-				<button id='days7'  class="expiryBtn" value='7'>7<br>Days</button>
-				<button id='days14' class="expiryBtn" value='14'>14<br>Days</button>
-				<button id='days30' class="expiryBtn" value='30'>30<br>Days</button>
+				<button id='days1'  type='button' class="expiryBtn" value='1'>1<br>Days</button>
+				<button id='days7'  type='button' class="expiryBtn" value='7'>7<br>Days</button>
+				<button id='days14' type='button' class="expiryBtn" value='14'>14<br>Days</button>
+				<button id='days30' type='button' class="expiryBtn" value='30'>30<br>Days</button>
 			</div>
 
 			<h3 class="accountBarTitle"></h3>
 
-			<button id='logIn' class="btnAccount">Log in</button>
-			<button id='logOut' class="btnAccount">Log out</button>
-		</div>
+			<button id='logIn' type='button' class="btnAccount">Log in</button>
+			<a id='createNew' class="accountSubHeading">Create new account</a>
+
+			<button id='logOut' type='button' class="btnAccount">Log out</button>
+		</form>
 	</div>
 	<div id="sideBar" class="sideBar side">
-		<a id="sideBtn1" class="btn" onclick="">Demo Nodes</a>
-		<a id="sideBtn2" class="btn" onclick="">Dummy btn 1</a>
-		<a id="sideBtn3" class="btn" onclick="">Dummy btn 1 2 3 4 5 6 7 8 9 10 11</a>
 	</div>
 	<nav class="naviBar">
 		<!--input class="searchBar" placeholder="Search..."-->

@@ -1,4 +1,4 @@
-import { node } from './nodes.js';
+import { Node } from './nodes.js';
 import { plusIcon } from './icons.js';
 
 export function createForm(title, desc, color, inputType="newCatInput") {
@@ -99,7 +99,7 @@ export class createNodeBtn {
           return;
         }
         const contentContainer = document.getElementById("content");
-        new node(contentContainer, formTitleValue, formDescValue, "", "", -1).container;
+        new Node(contentContainer, formTitleValue, formDescValue, "", "", 0).container;
 
         this.reAppend();
       });

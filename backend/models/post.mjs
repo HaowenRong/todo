@@ -1,5 +1,4 @@
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const nodeSchema = new mongoose.Schema({
   title: {
@@ -14,6 +13,15 @@ const nodeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  //nodes: [nodeSchema]
+});
+
+const page = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  nodes: [nodeSchema]
 });
 
 const userSchema = new mongoose.Schema({
@@ -21,10 +29,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  nodes: [nodeSchema]
+  pages: [page]
 });
-const UserDoc = mongoose.model('tests', userSchema);
+export const UserDoc = mongoose.model('tests', userSchema);
 
-module.exports = {
-  UserDoc
-};
