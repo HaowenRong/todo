@@ -7,7 +7,13 @@ export function accountBtnListener() {
   const accountBar = document.getElementById('accountBar');
 
   accountBtn.addEventListener('click', () => {
-    accountBar.classList.toggle('accountBar__opened');
+    const opened = accountBar.classList.toggle('accountBar__opened');
+    // if the bar is closed, clear fields
+    if (!opened) {
+      setTimeout(() => {
+        closeForm();
+      }, 100);
+    }
   });
 }
 
@@ -101,9 +107,11 @@ function loginDetection() {
 
 function logoutDectection() {
   const logoutBtn = document.getElementById('logOut');
+
+  // disable the button if there is no account currently logged in
+  if (getAccount() == undefined) { logoutBtn.disabled = true; }
+
   logoutBtn.addEventListener('click', () => {
-    // return if not signed in
-    if (getAccount() == undefined) { return; }
 
     // change date of cookie to have browser delete it
     const unixEpoch = new Date(0);
@@ -119,6 +127,7 @@ function closeForm() {
   const accName = document.getElementById('accountNameInput');
   const currentlySelectedExpiry = Array.from(document.getElementsByClassName('expiryBtn__selected'));
   console.log(currentlySelectedExpiry.length);
+
   currentlySelectedExpiry.forEach(element => {
     element.classList.remove('expiryBtn__selected');
   });
