@@ -1,11 +1,22 @@
 
 export function message(message, type) {
-  // append message to message section
+  // create message
   const newMessage = document.createElement('div');
-  newMessage.classList = 'message';
+  newMessage.classList = `message ${type}`; // type changes it color using a class
   newMessage.textContent = message;
-  newMessage.classList.toggle(`message__expanded`);
-  newMessage.classList.toggle(type);
+
+  // toggle animation to show animation
+  setTimeout(() => {
+    newMessage.classList.toggle(`message__expanded`);
+  }, 0);
+
+  // set timeout to remove message
+  setTimeout(() => {
+    newMessage.classList.toggle(`message__expanded`);
+    setTimeout(() => {
+      newMessage.remove();
+    }, 200);
+  }, 5000);
 
   const messageContainer = document.getElementById('messages');
   messageContainer.appendChild(newMessage);

@@ -1,5 +1,6 @@
 import { searchUser } from "./backend/api.js";
 import { loadUserPages } from "./pages.js";
+import { message } from "./messages.js";
 
 export function accountBtnListener() {
   const accountBtn = document.getElementById('accountBtn');
@@ -73,6 +74,7 @@ function loginDetection() {
     const currentlySelected = document.getElementsByClassName('expiryBtn__selected');
     console.log(currentlySelected.length);
     if (currentlySelected.length == 0) {
+      message("Please select login duration", 'error')
       return; 
     }
     console.log(currentlySelected[0].value);
@@ -80,8 +82,10 @@ function loginDetection() {
     // check name against db
     // create error messages
 
-    if (accName.value.length == 0) { return; }
-    // display error if empty
+    if (accName.value.length == 0) {
+      message("Please provide a user id", 'error')
+      return;
+    }
 
     // load user if name is found in db
     if (await searchUser(accName.value) != null) {

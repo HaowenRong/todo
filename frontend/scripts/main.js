@@ -7,9 +7,6 @@ new createNodeBtn();
 
 accountBtnListener();
 
-const ccontainer = document.getElementById('accountBtn');
-ccontainer.addEventListener('click', message('aaaaaaaaaaa', 'error'));
-
 btn1.container.addEventListener('click', () => {
   const contentContainer = document.getElementById('content');
   const a = new Node(contentContainer, 'Shopping', '', '', false, -1);
