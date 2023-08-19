@@ -1,10 +1,14 @@
 import { createNodeBtn } from './forms.js'
 import { Node } from './nodes.js';
 import { accountBtnListener, getAccount } from './accounts.js';
+import { message } from './messages.js';
 
 new createNodeBtn();
 
 accountBtnListener();
+
+const ccontainer = document.getElementById('accountBtn');
+ccontainer.addEventListener('click', message('aaaaaaaaaaa', 'error'));
 
 btn1.container.addEventListener('click', () => {
   const contentContainer = document.getElementById('content');
