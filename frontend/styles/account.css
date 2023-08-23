@@ -76,7 +76,8 @@
   background-color: var(--primary-shade-color);
 }
 .btnAccount:disabled {
-  background-color: var(--primary-text-color);
+  background-color: var(--primary-shade-color);
+  color: gray;
   cursor: not-allowed;
 }
 .btnAccount:last-child {

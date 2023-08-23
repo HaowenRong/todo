@@ -1,6 +1,7 @@
 import { createNodeBtn } from './forms.js'
 import { Node } from './nodes.js';
-import { accountBtnListener, getAccount } from './accounts.js';
+import { accountBtnListener } from './accounts.js';
+import { getAccount } from './cookies/accounts.js';
 import { message } from './messages.js';
 
 new createNodeBtn();

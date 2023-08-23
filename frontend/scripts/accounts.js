@@ -1,5 +1,5 @@
 import { searchUser } from "./backend/api.js";
-import { loadUserPages } from "./pages.js";
+import { storeAccount, getAccount, loadUserFromCookies } from "./cookies/accounts.js";
 import { message } from "./messages.js";
 
 export function accountBtnListener() {
@@ -12,36 +12,11 @@ export function accountBtnListener() {
     if (!opened) {
       setTimeout(() => {
         closeForm();
+        return;
       }, 100);
     }
+    displayAccountInfo();
   });
-}
-
-// cookies
-export function storeAccount(value, expiry) {
-  const expiration = new Date();
-  expiration.setTime(expiration.getTime() + (expiry * 24 * 60 * 60 * 1000));
-  
-  let expires = "expires=" + expiration.toUTCString();
-  document.cookie = 'account=' + value + ';' + expires + ';path=/';
-  console.log(document.cookie);
-}
-
-export function getAccount() {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; account=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-export async function loadUserFromCookies() {
-  const account = document.getElementById('accountBtn');
-  const accountName = getAccount();
-  if (accountName == undefined) {
-    account.textContent = 'Account';
-    return;
-  }
-  account.textContent = accountName;
-  await loadUserPages(account.textContent);
 }
 
 function expiryDaysDetection() {
@@ -125,18 +100,29 @@ function logoutDectection() {
 
 function closeForm() {
   const accName = document.getElementById('accountNameInput');
-  const currentlySelectedExpiry = Array.from(document.getElementsByClassName('expiryBtn__selected'));
-  console.log(currentlySelectedExpiry.length);
 
+  // use accname to determine whether the form is available
+  if (accName == null) { return; }
+
+  const currentlySelectedExpiry = Array.from(document.getElementsByClassName('expiryBtn__selected'));
   currentlySelectedExpiry.forEach(element => {
     element.classList.remove('expiryBtn__selected');
   });
-  accName.value = '';
 }
 
 function submitForm() {
   const form = document.getElementById('accountBar');
   form.submit();
+}
+
+// todo display user account information when logged in
+function displayAccountInfo() {
+  const accountsBar = document.getElementById('accountBar');
+
+  // const userCreationDate = 
+  //const test = document.createElement('h1');
+  //test.textContent = "hello";
+  //accountsBar.appendChild(test);
 }
 
 loadUserFromCookies();

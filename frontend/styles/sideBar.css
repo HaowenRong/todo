@@ -43,10 +43,12 @@
 }
 
 .btn {
+  all: unset;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--primary-text-color);
 
   width: 80%;
   padding: 10px;
