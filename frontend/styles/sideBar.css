@@ -60,6 +60,10 @@
   background-color: white;
 }
 
+.createPageBtn {
+  margin-top: 0.5rem;
+}
+
 .accountBtn {
   all: unset;
   cursor: pointer;

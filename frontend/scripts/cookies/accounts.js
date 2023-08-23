@@ -16,6 +16,7 @@ export function getAccount() {
 }
 
 export async function loadUserFromCookies() {
+  // todo change method of getting account name
   const account = document.getElementById('accountBtn');
   const accountName = getAccount();
   if (accountName == undefined) {
@@ -28,18 +29,4 @@ export async function loadUserFromCookies() {
 
   const accountsForm = document.getElementById('accountsForm');
   accountsForm.remove();
-}
-
-/**
- * process
- * 
- * get account - accounts / local
- * - local = ''
- * go through pages and store each page
- * - go through pages with cookies
- * - store to cookies
- */
-
-export function getNodes() {
-  
 }

@@ -18,6 +18,7 @@ export class createPageBtn {
   #parent = document.getElementById('sideBar');;
   #btn    = new btn('+', 'text');
   constructor() {
+    this.#btn.container.classList.add('createPageBtn');
     this.#btn.container.style.textAlign = 'center';
     this.#btn.container.style.order = '1';
 
@@ -50,8 +51,8 @@ export class createPageBtn {
     // aligned text is used to determine which state the button is in
     // only change button if text align is not already left
     if (this.#btn.container.style.textAlign != 'left') {
-      this.#btn.container.style.textAlign = 'left';
       this.#btn.container.value = '';
+      this.#btn.container.style.textAlign = 'left';
     }
   }
 }
