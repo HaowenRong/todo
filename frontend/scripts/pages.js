@@ -1,14 +1,59 @@
 import { Node } from './nodes.js';
 import { createNodeBtn } from './forms.js'
-import { getAccount } from './accounts.js';
+import { getAccount } from './cookies/accounts.js';
 import { searchUser, fetchPage } from './backend/api.js';
 
-function createBtn(pageName) {
-  const btn = document.createElement('div');
-  btn.className = 'btn';
-  btn.textContent = pageName;
+class btn {
+  container;
+  constructor(btnName, type='button') {
+    this.container = document.createElement('input');
+    this.container.type = type;
+    this.container.className = 'btn';
+    this.container.value = btnName;
+  }
+  
+}
 
-  return btn;
+export class createPageBtn {
+  #parent = document.getElementById('sideBar');;
+  #btn    = new btn('+', 'text');
+  constructor() {
+    this.#btn.container.style.textAlign = 'center';
+    this.#btn.container.style.order = '1';
+
+    this.#parent.appendChild(this.#btn.container);
+
+    this.#btn.container.addEventListener('click', this.toggleEdit);
+
+    this.#btn.container.addEventListener('keyup', (event) => {
+      this.createBtn(event);
+    });
+  }
+  
+  createBtn(event) {
+    if (event.key != 'Enter')            { return; }
+    if (this.#btn.container.value == '') { return; }
+
+    // create a new button from the inputted value
+    new pageBtn(this.#btn.container.value);
+
+    this.resetBtn();
+  }
+
+  resetBtn() {
+    this.#btn.container.style.textAlign = 'center';
+    this.#btn.container.value = '+';
+    this.#btn.container.blur();
+  }
+
+  toggleEdit = () => {
+    // aligned text is used to determine which state the button is in
+    // only change button if text align is not already left
+    if (this.#btn.container.style.textAlign != 'left') {
+      this.#btn.container.style.textAlign = 'left';
+      this.#btn.container.value = '';
+    }
+  }
 }
 
 export class pageBtn {
@@ -18,7 +63,7 @@ export class pageBtn {
   constructor(pageName) {
     this.#pageName = pageName;
     this.#parent = document.getElementById('sideBar');
-    this.container = createBtn(this.#pageName);
+    this.container = new btn(this.#pageName).container;
 
     this.#parent.append(this.container);
 
