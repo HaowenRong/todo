@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-const nodeSchema = new mongoose.Schema({
+const nodeSchema = new mongoose.Schema();
+nodeSchema.add({
   title: {
     type: String,
     required: true,
@@ -9,11 +10,7 @@ const nodeSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  color: {
-    type: String,
-    required: false,
-  },
-  //nodes: [nodeSchema]
+  nodes: [nodeSchema]
 });
 
 const page = new mongoose.Schema({
