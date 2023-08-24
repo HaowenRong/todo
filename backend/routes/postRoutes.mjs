@@ -11,9 +11,9 @@ router.get('/docs/:id', controller.getDocById);
 
 router.get('/docs/:id/pages/:name', controller.getPageById);
 
-router.get('/docs/:title', controller.getDocById);
+//router.get('/docs/:title', controller.getDocById);
 
-router.get('/docs/:desc', controller.getDocById);
+//router.get('/docs/:desc', controller.getDocById);
 
 router.get('/docs/search/:id', controller.getDocById);
 

@@ -2,32 +2,31 @@ import mongoose from 'mongoose';
 
 const nodeSchema = new mongoose.Schema();
 nodeSchema.add({
-  nodeTitle: {
+  title: {
     type: String,
     required: true,
   },
-  nodeDesc: {
+  desc: {
     type: String,
     required: false,
   },
   nodes: [nodeSchema]
 });
 
-const pageSchema = new mongoose.Schema({
-  pageTitle: {
+const page = new mongoose.Schema({
+  title: {
     type: String,
     required: true,
-    unique: true
   },
   nodes: [nodeSchema]
 });
 
 const userSchema = new mongoose.Schema({
-  userName: {
+  name: {
     type: String,
     required: true,
   },
-  userPages: [pageSchema]
+  pages: [page]
 });
 export const UserDoc = mongoose.model('tests', userSchema);
 

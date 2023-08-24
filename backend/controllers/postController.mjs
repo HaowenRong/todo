@@ -56,12 +56,12 @@ export const getDocByDesc = async (req, res) => {
 };
 
 export const createDoc = async (req, res) => {
-  const {userName, userPages} = req.body;
+  const {name, pages} = req.body;
   console.log(1);
   try {
     const newDoc = new UserDoc({
-      userName,
-      userPages,
+      name,
+      pages,
     });
     console.log(2);
 

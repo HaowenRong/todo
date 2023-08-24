@@ -26,7 +26,4 @@ export async function loadUserFromCookies() {
   account.textContent = accountName;
   await loadUserPages(account.textContent);
   new createPageBtn();
-
-  const accountsForm = document.getElementById('accountsForm');
-  accountsForm.remove();
 }
