@@ -25,25 +25,6 @@ export async function fetchPage(userId, pageId) {
   }
 }
 
-export async function createNew(docData) {
-  try {
-    const response = await fetch('http://localhost:3000/docs/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(docData)
-    });
-    if (!response.ok) {
-      console.log("Error creating doc");
-      return;
-    }
-    console.log("Creation was successful");
-  } catch (error) {
-    console.error('Error retrieving posts:', error);
-  }
-}
-
 export async function createUser(docData) {
   try {
     const response = await fetch('http://localhost:3000/docs/create/user', {
