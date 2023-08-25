@@ -13,7 +13,7 @@ nodeSchema.add({
   nodes: [nodeSchema]
 });
 
-const page = new mongoose.Schema({
+const pageSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pages: [page]
+  pages: [pageSchema]
 });
-export const UserDoc = mongoose.model('tests', userSchema);
 
+export const Users = mongoose.model('tests', userSchema);

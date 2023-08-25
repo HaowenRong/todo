@@ -21,3 +21,6 @@ router.get('/docs/search/:id', controller.getDocById);
 router.post('/docs/create', controller.createDoc);
 
 router.post('/docs/create/user', controller.createDoc);
+
+
+router.get('/docs/:userId/pages/:pageId/nodes/:nodeId', controller.getNodeById);
