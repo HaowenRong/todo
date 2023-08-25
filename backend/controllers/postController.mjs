@@ -39,36 +39,47 @@ export const getPageById = async (req, res) => {
   }
 };
 
+function searchNode(userId, pageId, nodeId) {
 
-export const getNodeById = async (req, res) => {
-  const { userId, pageId, nodeId } = req.params;
+}
 
+export const findNodeById = async (userId, pageId, nodeId) => {
   try {
-    // check parameters are not empty
-    if (!userId || !pageId || !nodeId) {
-      return res.status(400).json({ error: `Missing parameters. ${req.params}` });
-    }
 
     const user = await Users.findOne({ _id: userId });
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return { error: 'User not found.' };
     }
 
     const page = user.pages.find((page) => page.title === pageId);
     if (!page) {
-      return res.status(404).json({ error: 'Page not found.' });
+      return { error: 'Page not found.' };
     }
 
     const node = page.nodes.find((node) => node._id.toString() === nodeId);
     if (!node) {
-      return res.status(404).json({ error: 'Node not found.' });
+      return { error: 'Node not found.' };
     }
 
-    res.json({ node });
+    return node;
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error retrieving documents.' });
+    console.log(error);
+    return { error: 'Error retrieving documents.' };
   }
+};
+
+export const getNodeById = async (req, res) => {
+  const { userId, pageId, nodeId } = req.params;
+
+  const node = await findNodeById(userId, pageId, nodeId);
+
+  console.log(node.error);
+
+  if (node.error) {
+    return res.status(404).json({ error: node.error });
+  }
+
+  res.json({ node });
 };
 
 export const getDocsByTitle = async (req, res) => {
@@ -108,24 +119,11 @@ export const createDoc = async (req, res) => {
 }
 
 export const createNewNode = async (req, res) => {
-  try {
-    console.log(req.params);
-
-    // check if user exists
-    const doc = await UserDoc.findById(req.params.userId);
-    console.log(doc);
-    if (doc == null) { return; }
-
-    const node = await Nodes.findById(req.params.nodeId);
-    console.log(node);
-    res.json(doc);
-  } catch(error) {
-    res.status(500).json({ error: 'Error retreiving documents5'});
-  }
+  const node = await findNodeById(userId, pageId, nodeId);
 }
 
 export const updateNode = async (req, res) => {
-
+  const node = await findNodeById(userId, pageId, nodeId);
 }
 
 // todo seperate controllers into different files
