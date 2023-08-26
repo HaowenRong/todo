@@ -24,3 +24,5 @@ router.post('/docs/create/user', controller.createDoc);
 
 
 router.get('/docs/:userId/pages/:pageId/nodes/:nodeId', controller.getNodeById);
+
+router.post('/docs/:userId/pages/:pageId/nodes/:nodeId/test', controller.updateNode);
