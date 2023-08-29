@@ -40,22 +40,55 @@ export const getPageById = async (req, res) => {
 };
 
 function searchNode(currNode, nodeId) {
-  const node = currNode.nodes.find((node) => node._id.toString() === nodeId);
+  console.log('Searching node')
+  console.log(currNode);
+  console.log(currNode.nodes == undefined);
 
-  console.log('nodes length' + node.nodes.length)
+  if (currNode.nodes == undefined) {
+    console.log("Returned by undefined")
+    return { error: 'Node not found'};
+  }
+  if (currNode.nodes.length == 0) {
+    console.log("returned by length");
+    return { error: 'Node not found'};
+  }
 
-  if (!node) {
-    console.log('--Iterated')
-    console.log(node)
-    if (node.nodes.length == 0) {
-      console.log('Length 0')
-      return { error: 'Node not found.' };
-    }
-    searchNode(node, nodeId)
+  const foundNodes   = currNode.nodes.find((node) => node);
+  const searchedNode = currNode.nodes.find((node) => node._id.toString() === nodeId);
+
+  console.log("Found nodes - " + foundNodes.nodes.length);
+  
+  //console.log('nodes length' + node.nodes.length)
+  //console.log(node);
+  
+  console.log('\n');
+  console.log(foundNodes._id);
+  console.log(foundNodes.nodes.length);
+  console.log('\n')
+  console.log(foundNodes);
+  console.log('\n')
+  console.log('compar')
+  console.log(currNode.nodes)
+  console.log(searchedNode);
+  if (!searchedNode) {
+    console.log(0)
+  }
+  if (searchedNode) {
+    console.log(1)
+  }
+
+  
+
+  if (!searchedNode) {
+    searchNode(foundNodes.nodes, nodeId);
+  } else {
+    console.log("searchedNode" + searchedNode);
+    // make return correct node
+    return searchedNode;
   }
 }
 
-const findNodeById = async (userId, pageId, nodeId, innerNodeId="64e7b704c124c67093648337") => {
+const findNodeById = async (userId, pageId, nodeId, innerNodeId="64e7b704c124c67093648338") => {
   try {
 
     const user = await Users.findOne({ _id: userId });
@@ -74,9 +107,12 @@ const findNodeById = async (userId, pageId, nodeId, innerNodeId="64e7b704c124c67
     }
 
     const test = await node.nodes.find((node) => node._id.toString() == innerNodeId);
-    console.log(test);
-    console.log(node);
-    console.log(node.nodes);
+    //console.log(test);
+    //console.log(node);
+    //console.log(node.nodes);
+
+    const test2 = searchNode(node, innerNodeId);
+    // console.log(test2);
 
     return {
       node: node,
