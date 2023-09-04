@@ -1,9 +1,9 @@
 import { Users } from '../models/post.mjs';
 
 export const getDocs = async (req, res) => {
+  console.log("Get all docs ---------------------------------");
   try {
     const docs = await Users.find({});
-    console.log(2);
     res.json(docs);
   } catch(error) {
     console.log(error);
@@ -12,8 +12,8 @@ export const getDocs = async (req, res) => {
 };
 
 export const getDocById = async (req, res) => {
+  console.log("Get doc by ID ---------------------------------");
   try {
-    console.log(11);
     const doc = await Users.findOne({ _id: req.params.id });
     console.log(doc);
     res.json(doc);
@@ -22,16 +22,23 @@ export const getDocById = async (req, res) => {
   }
 };
 
+async function searchPage(pageId, pageName) {
+  // note searches by page name unlike other searches which search by id
+  const doc = await Users.findOne(
+    { _id: pageId, 'pages.title': pageName },
+    { 'pages.$': 1 } // retrieve first matched page only
+  ).populate('pages.nodes');
+  const page = doc.pages[0];
+  return page;
+}
+
 export const getPageById = async (req, res) => {
   const { id, name } = req.params;
+  console.log("Get page by ID ---------------------------------");
   console.log(req.params);
 
   try {
-    const doc = await Users.findOne(
-      { _id: id, 'pages.title': name },
-      { 'pages.$': 1 } // retrieve first matched page only
-    ).populate('pages.nodes');
-    const page = doc.pages[0];
+    const page = searchPage(id, name);
     res.json({ page });
   } catch (error) {
     console.error(error);
@@ -39,80 +46,87 @@ export const getPageById = async (req, res) => {
   }
 };
 
-function searchNode(currNode, nodeId) {
-  console.log('Searching node')
-  console.log(currNode);
-  console.log(currNode.nodes == undefined);
+export const searchNodeTest = async (req, res) => {
 
-  if (currNode.nodes == undefined) {
-    console.log("Returned by undefined")
-    return { error: 'Node not found'};
-  }
-  if (currNode.nodes.length == 0) {
-    console.log("returned by length");
-    return { error: 'Node not found'};
-  }
+  const { userId, pageId, nodeId } = req.params;
+  const node = await searchPage(userId, pageId);
 
-  const foundNodes   = currNode.nodes.find((node) => node);
-  const searchedNode = currNode.nodes.find((node) => node._id.toString() === nodeId);
-
-  console.log("Found nodes - " + foundNodes.nodes.length);
-  
-  //console.log('nodes length' + node.nodes.length)
-  //console.log(node);
-  
-  console.log('\n');
-  console.log(foundNodes._id);
-  console.log(foundNodes.nodes.length);
-  console.log('\n')
-  console.log(foundNodes);
-  console.log('\n')
-  console.log('compar')
-  console.log(currNode.nodes)
-  console.log(searchedNode);
-  if (!searchedNode) {
-    console.log(0)
-  }
-  if (searchedNode) {
-    console.log(1)
-  }
-
-  
-
-  if (!searchedNode) {
-    searchNode(foundNodes.nodes, nodeId);
-  } else {
-    console.log("searchedNode" + searchedNode);
-    // make return correct node
-    return searchedNode;
+  try {
+    const foundNode = searchNodes(node, nodeId);
+    console.log('-------------------------------------------------')
+    console.log(foundNode);
+    res.json(foundNode);
+  } catch (error) {
+    res.status(500).json({ error: 'Error searching doc'});
   }
 }
 
-const findNodeById = async (userId, pageId, nodeId, innerNodeId="64e7b704c124c67093648338") => {
+function searchNodes(currNode, nodeToSearch, depth=1) {
   try {
+    console.log(`search node --------------------------------- depth - ${depth}`);
+    const searchedNode = currNode.nodes.find((node) => node._id.toString() === nodeToSearch);
+
+    console.log(currNode.nodes);
+
+    if (searchedNode) {
+      console.log(`Node found at depth: ${depth}`);
+      console.log("Node: vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+      console.log(searchedNode);
+      console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+      return searchedNode;
+    } else {
+      // if node is not found, search through its nodes for the node
+      for (const node of currNode.nodes) {
+        const foundNode = searchNodes(node, nodeToSearch, depth+1);
+        if (foundNode) {
+          console.log(`Node found at depth: ${depth}`);
+          console.log("Node: vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+          console.log(searchedNode);
+          console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+          return foundNode;
+        }
+      }
+    }
+
+    return null; // node not found
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+const findNodeById = async (userId, pageId, nodeId, innerNodeId="64e7b704c124c67093648337") => {
+  try {
+    console.log(1)
 
     const user = await Users.findOne({ _id: userId });
     if (!user) {
+      console.log(11)
       return { error: 'User not found.' };
     }
+    console.log(2)
 
     const page = user.pages.find((page) => page.title === pageId);
     if (!page) {
+      console.log(22)
       return { error: 'Page not found.' };
     }
+    console.log(3)
 
     const node = page.nodes.find((node) => node._id.toString() === nodeId);
     if (!node) {
+      console.log(33)
       return { error: 'Node not found.' };
     }
+    console.log(4)
 
-    const test = await node.nodes.find((node) => node._id.toString() == innerNodeId);
+    //const test = await node.nodes.find((node) => node._id.toString() == innerNodeId);
     //console.log(test);
     //console.log(node);
     //console.log(node.nodes);
 
     const test2 = searchNode(node, innerNodeId);
-    // console.log(test2);
+    console.log(test2);
 
     return {
       node: node,
