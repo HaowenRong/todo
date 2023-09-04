@@ -1,4 +1,5 @@
 import { Users } from '../models/post.mjs';
+import { searchPage, searchNodes } from './controllerScripts.mjs';
 
 export const getDocs = async (req, res) => {
   console.log("Get all docs ---------------------------------");
@@ -28,11 +29,7 @@ export const getPageById = async (req, res) => {
   console.log(req.params);
 
   try {
-    const doc = await Users.findOne(
-      { _id: id, 'pages.title': name },
-      { 'pages.$': 1 } // retrieve first matched page only
-    ).populate('pages.nodes');
-    const page = doc.pages[0];
+    const page = searchPage(id, name);
     res.json({ page });
   } catch (error) {
     console.error(error);
@@ -40,3 +37,17 @@ export const getPageById = async (req, res) => {
   }
 };
 
+export const searchNode = async (req, res) => {
+
+  const { userId, pageId, nodeId } = req.params;
+  const node = await searchPage(userId, pageId);
+
+  try {
+    const foundNode = searchNodes(node, nodeId);
+    console.log('-------------------------------------------------')
+    console.log(foundNode);
+    res.json(foundNode);
+  } catch (error) {
+    res.status(500).json({ error: 'Error searching doc'});
+  }
+}
