@@ -1,4 +1,7 @@
+import 'dotenv/config.js';
 import mongoose from 'mongoose';
+
+const collection = process.env.PAGES_COLLECTION;
 
 const PageSchema = new mongoose.Schema({
   title: {
@@ -23,4 +26,4 @@ const PageSchema = new mongoose.Schema({
   },
 });
 
-export const Page = mongoose.model('tests', PageSchema);
+export const Page = mongoose.model(collection, PageSchema);

@@ -1,5 +1,7 @@
 import express from 'express';
-import routes from './routes/listingsRoutes.mjs';
+import listingRoutes from './routes/listingsRoutes.mjs';
+import pageRoutes    from './routes/pageRoutes.mjs';
+import userRoutes    from './routes/userRoutes.mjs';
 
 const app = express();
 const port = 3000;
@@ -22,7 +24,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(routes);
+app.use(listingRoutes);
+app.use(pageRoutes);
+app.use(userRoutes);
 
 import { connectDB } from './models/mongo-db.mjs';
 connectDB();

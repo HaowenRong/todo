@@ -1,4 +1,7 @@
+import 'dotenv/config.js';
 import mongoose from 'mongoose';
+
+const collection = process.env.USER_COLLECTION;
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -16,4 +19,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-export const User = mongoose.model('tests', UserSchema);
+export const User = mongoose.model(collection, UserSchema);

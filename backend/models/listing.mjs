@@ -1,4 +1,7 @@
+import 'dotenv/config.js';
 import mongoose from 'mongoose';
+
+const collection = process.env.LISTINGS_COLLECTION;
 
 const ListingsSchema = new mongoose.Schema({
   title: {
@@ -38,4 +41,4 @@ const ListingsSchema = new mongoose.Schema({
   },
 });
 
-export const Listing = mongoose.model('tests', ListingsSchema);
+export const Listing = mongoose.model(collection, ListingsSchema);

@@ -1,10 +1,10 @@
-import { Listing } from '../models/listing.mjs';
+import { Page } from '../models/pages.mjs';
 
 // read
-const searchDoc = async (req, res) => {
+const searchPage = async (req, res) => {
   try {
     const { id } = req.params;
-    const doc    = await Listing.findById(id);
+    const doc    = await Page.findById(id);
 
     if (!doc) {
       return res.status(404).json({ error: 'Document not found' });
@@ -18,15 +18,13 @@ const searchDoc = async (req, res) => {
 
 
 // write
-const createDoc = async (req, res) => {
+const createPage = async (req, res) => {
   try {
-    const { title, desc, parent, color } = req.body;
+    const { title, owner } = req.body;
 
-    const newDoc = new Listing({
+    const newDoc = new Page({
       title,
-      desc,
-      parent,
-      color
+      owner
     });
 
     await newDoc.save();
@@ -37,15 +35,14 @@ const createDoc = async (req, res) => {
   }
 };
 
-const editDoc = async (req, res) => {
+const editPage = async (req, res) => {
   try {
     const { id }        = req.params;
     const updatedValues = req.body;
 
-    // add a modified property to update the modified at property
-    updatedValues.modifiedAt = Date(); // todo make it follow timezones. probably better implemented in the front end
+    updatedValues.modifiedAt = Date();
 
-    const updatedDoc = await Listing.findByIdAndUpdate(
+    const updatedDoc = await Page.findByIdAndUpdate(
       id,
       updatedValues,
       { new: true }
@@ -61,6 +58,6 @@ const editDoc = async (req, res) => {
   }
 };
 
-export { searchDoc,
-         createDoc,
-         editDoc };
+export { searchPage,
+         createPage,
+         editPage };
