@@ -1,5 +1,5 @@
 import express from 'express';
-import routes from './routes/postRoutes.mjs';
+import routes from './routes/listingsRoutes.mjs';
 
 const app = express();
 const port = 3000;
