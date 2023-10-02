@@ -42,6 +42,9 @@ const editDoc = async (req, res) => {
     const { id }        = req.params;
     const updatedValues = req.body;
 
+    // add a modified property to update the modified at property
+    updatedValues.modifiedAt = Date(); // todo make it follow timezones. probably better implemented in the front end
+
     const updatedDoc = await Listing.findByIdAndUpdate(
       id,
       updatedValues,
