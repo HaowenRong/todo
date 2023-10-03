@@ -5,6 +5,7 @@ import * as controller from '../controllers/pageController.mjs';
 
 // read
 router.get('/pages/search/:id', controller.searchPage);
+router.get('/pages/:id', controller.getPagesByOwner);
 
 // write
 router.post('/pages/create',   controller.createPage);

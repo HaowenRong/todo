@@ -16,6 +16,21 @@ const searchPage = async (req, res) => {
   }
 };
 
+const getPagesByOwner = async (req, res) => {
+  try {
+    const { id }  = req.params;
+    const pages = await Page.find({ owner: id });
+
+    if (!pages) {
+      return res.status(404).json({ error: 'No pages for selected user' });
+    }
+
+    res.status(200).json({ pages });
+  } catch (error) {
+    res.status(500).json({ error: 'Error finding listings' });
+  }
+};
+
 
 // write
 const createPage = async (req, res) => {
@@ -60,4 +75,5 @@ const editPage = async (req, res) => {
 
 export { searchPage,
          createPage,
-         editPage };
+         editPage,
+         getPagesByOwner };

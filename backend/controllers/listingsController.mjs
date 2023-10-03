@@ -16,6 +16,21 @@ const searchDoc = async (req, res) => {
   }
 };
 
+const getListingsPerParent = async (req, res) => {
+  try {
+    const { id }  = req.params;
+    const listings = await Listing.find({ parent: id });
+
+    if (!listings) {
+      return res.status(404).json({ error: 'No listings for selected page' });
+    }
+
+    res.status(200).json({ listings });
+  } catch (error) {
+    res.status(500).json({ error: 'Error finding listings' });
+  }
+};
+
 
 // write
 const createDoc = async (req, res) => {
@@ -63,4 +78,5 @@ const editDoc = async (req, res) => {
 
 export { searchDoc,
          createDoc,
-         editDoc };
+         editDoc,
+         getListingsPerParent };
