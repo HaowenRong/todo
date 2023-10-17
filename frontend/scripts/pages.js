@@ -1,7 +1,7 @@
 import { Node } from './nodes.js';
 import { createNodeBtn } from './forms.js'
 import { getAccount } from './cookies/accounts.js';
-import { searchUser, fetchPage } from './backend/api.js';
+import { searchUser, fetchPage, searchPages, searchListings } from './backend/api.js';
 
 class btn {
   container;
@@ -74,8 +74,10 @@ export class pageBtn {
 
       // todo check if page is already open
 
+      const userData = JSON.parse(decodeURIComponent(getAccount()));
+
       if (pageName == 'View All') {
-        viewAll(getAccount());
+        viewAll(userData.id);
         return;
       }
 
@@ -93,10 +95,9 @@ async function loadPage(userId, pageName) {
 }
 
 export async function loadUserPages(userId) {
-  // todo code to remove previous buttons
-  const userData  = await searchUser(userId);
-  const userPages = userData.pages;
+  const userPages = (await searchPages(userId)).pages;
 
+  // create default button to view all listings
   new pageBtn('View All');
 
   // loop through users pages and create buttons
@@ -116,6 +117,25 @@ export function displayNodes(nodes, container=document.getElementById('content')
 }
 
 export async function viewAll(userId) {
+  const contentContainer = document.getElementById('content');
+  const userPages = (await searchPages(userId)).pages;
+
+  // loop through users pages
+  userPages.forEach(async page => {
+    // search for pages that have the current page as its owner
+    const pageListings = (await searchListings(page._id)).listings;
+
+    // search for listings that have the current page as its parent
+    pageListings.forEach(listing => {
+      
+      // display each listing that is found
+      const currentPage = new Node(contentContainer, `${listing.title}`, '', '', false, -1);
+    });
+  });
+}
+
+/*
+export async function viewAll(userId) {
   const userData  = await searchUser(userId);
   const userPages = userData.pages;
 
@@ -124,7 +144,6 @@ export async function viewAll(userId) {
   console.log(userData.pages);
 
   userPages.forEach(page => {
-    console.log(5789234576892367823);
     console.log(page.title);
     const contentContainer = document.getElementById('content');
     const currentPage = new Node(contentContainer, `${page.title}`, '', '', false, -1);
@@ -135,7 +154,7 @@ export async function viewAll(userId) {
   console.log(userData.pages[0].nodes);
   console.log(userData.pages[0].nodes[0]);
   console.log(userData.pages[0].nodes[1]);
-}
+}*/
 
 function clearPage() {
   let content = document.getElementById('content');

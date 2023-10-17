@@ -7,6 +7,7 @@ export async function getAll(userId) {
   }
 }
 
+/*
 export async function searchUser(userId) {
   try {
     const response = await fetch(`http://localhost:3000/docs/${userId}`);
@@ -14,7 +15,7 @@ export async function searchUser(userId) {
   } catch (error) {
     console.error('Error retrieving posts:', error);
   }
-}
+}*/
 
 export async function fetchPage(userId, pageId) {
   try {
@@ -61,5 +62,34 @@ export async function saveNode(userId, node) {
     console.log("Creation was successful");
   } catch (error) {
     console.log('Error saving node', error);
+  }
+}
+
+
+
+export async function searchUser(userId) {
+  try {
+    const response = await fetch(`http://localhost:3000/users/search/${userId}`);
+    return response.json();
+  } catch (error) {
+    console.error('Error retrieving posts:', error);
+  }
+}
+
+export async function searchPages(ownerId) {
+  try {
+    const response = await fetch(`http://localhost:3000/pages/${ownerId}`);
+    return (response.json());
+  } catch (error) {
+    console.error('Error retrieving posts:', error);
+  }
+}
+
+export async function searchListings(listingsParentId) {
+  try {
+    const response = await fetch(`http://localhost:3000/listings/${listingsParentId}`);
+    return response.json();
+  } catch (error) {
+    console.error('Error retrieving posts:', error);
   }
 }

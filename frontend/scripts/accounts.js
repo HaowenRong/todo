@@ -54,6 +54,14 @@ function loginDetection() {
   accBtn.addEventListener('click', async () => {
     const currentlySelected = document.getElementsByClassName('expiryBtn__selected');
     console.log(currentlySelected.length);
+
+    // check for input
+    if (accName.value.length == 0) {
+      message("Please provide a user id", 'error')
+      return;
+    }
+
+    // check for selected sign in duration
     if (currentlySelected.length == 0) {
       message("Please select login duration", 'error')
       return; 
@@ -63,16 +71,15 @@ function loginDetection() {
     // check name against db
     // create error messages
 
-    if (accName.value.length == 0) {
-      message("Please provide a user id", 'error')
-      return;
-    }
-
     // load user if name is found in db
-    if (await searchUser(accName.value) != null) {
-      const a = await searchUser(accName.value)
-      console.log(a.pages);
-      storeAccount(accName.value, currentlySelected[0].value);
+    const user = (await searchUser(accName.value)).doc;
+    console.log(user);
+    if (user != null) {
+      const userData = {
+        id: user._id,
+        name: user.name
+      }
+      storeAccount(JSON.stringify(userData), currentlySelected[0].value);
       loadUserFromCookies();
       // todo check for same account
       submitForm();

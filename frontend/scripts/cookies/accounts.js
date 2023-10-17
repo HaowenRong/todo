@@ -12,18 +12,25 @@ export function storeAccount(value, expiry) {
 export function getAccount() {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; account=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
+  if (parts.length === 2) {
+    return parts.pop().split(';').shift();
+  }
 }
 
 export async function loadUserFromCookies() {
-  // todo change method of getting account name
-  const account = document.getElementById('accountBtn');
-  const accountName = getAccount();
-  if (accountName == undefined) {
-    account.textContent = 'Account';
+  const accountBtn = document.getElementById('accountBtn');
+  const account    = getAccount();
+
+  // check if there is an account stored
+  if (account === undefined) {
+    accountBtn.textContent = 'Account';
     return;
   }
-  account.textContent = accountName;
-  await loadUserPages(account.textContent);
+
+  // decode the users data
+  const userData = JSON.parse(decodeURIComponent(account));
+
+  accountBtn.textContent = userData.name;
+  await loadUserPages(userData.id);
   new createPageBtn();
 }
